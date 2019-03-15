@@ -1,0 +1,3 @@
+spring:
+  profiles:
+    include: default, elasticsearch-local, rabbitmq-local, kafka-local, eureka-local, idp-local

@@ -1,0 +1,1 @@
+spring.data.mongodb.uri: mongodb://mongodb1:27017,mongodb2:27017/storage?replicaSet=rs_showcase

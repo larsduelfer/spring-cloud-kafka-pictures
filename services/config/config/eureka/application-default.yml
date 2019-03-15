@@ -1,0 +1,17 @@
+spring.security.user.name: eureka
+spring.security.user.password: secret
+
+eureka:
+  instance:
+    hostname: localhost
+    preferIpAddress: true
+    leaseRenewalIntervalInSeconds: 3
+    leaseExpirationDurationInSeconds: 10
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: "http://${spring.security.user.name}:${spring.security.user.password}@${eureka.instance.hostname}:${server.port}/eureka/"
+
+server:
+  port: 10010

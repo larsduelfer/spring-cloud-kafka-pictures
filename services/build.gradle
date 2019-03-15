@@ -1,0 +1,31 @@
+def productVersion = 1
+def apiVersion = 0
+def buildNumber = "0-SNAPSHOT"
+
+allprojects {
+    group = 'info.novatec.spring.showcase'
+    if(System.env.VERSION == null) {
+        version = "${apiVersion}.${productVersion}.${buildNumber}"
+    } else {
+        version = System.env.VERSION
+    }
+
+    repositories {
+        mavenCentral()
+    }
+    buildscript {
+        repositories {
+            mavenCentral()
+        }
+    }
+}
+
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+}
+
+subprojects {
+    apply plugin: 'java'
+}

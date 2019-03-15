@@ -1,0 +1,5 @@
+spring:
+  data:
+    elasticsearch:
+      clusterName: docker-cluster
+      clusterNodes: localhost:9300

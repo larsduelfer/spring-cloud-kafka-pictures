@@ -1,0 +1,37 @@
+<div class="container">
+  <mat-card>
+    Sign Up
+  </mat-card>
+  <form [formGroup]="registerFormGroup" novalidate ngxsForm="register.registerForm" (ngSubmit)="sendRegistration()">
+    <mat-card class="signup-input-form">
+      <div class="signup-input">
+        <mat-form-field class="signup-input-field">
+          <input matInput #firstName maxlength="256" placeholder="First name" formControlName="firstName" required>
+          <mat-hint align="end">{{firstName.value.length}} / 256</mat-hint>
+          <mat-error [hidden]="!registerFormGroup.controls['firstName'].errors">
+            First name is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="signup-input">
+        <mat-form-field class="signup-input-field">
+          <input matInput #lastName maxlength="256" placeholder="Last name" formControlName="lastName" required>
+          <mat-hint align="end">{{lastName.value.length}} / 256</mat-hint>
+          <mat-error [hidden]="!registerFormGroup.controls['lastName'].errors">
+            Last name is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="signup-input">
+        <mat-form-field class="signup-input-field">
+          <input matInput #displayName maxlength="256" placeholder="Display name" formControlName="displayName" required>
+          <mat-hint align="end">{{displayName.value.length}} / 256</mat-hint>
+          <mat-error [hidden]="!registerFormGroup.controls['displayName'].errors">
+            Display name is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <button class="signup-send-button" mat-stroked-button type="submit" [disabled]="!registerFormGroup.valid">Send</button>
+    </mat-card>
+  </form>
+</div>

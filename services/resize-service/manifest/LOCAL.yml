@@ -1,0 +1,17 @@
+---
+# Manifest for deployments to PCF Dev
+applications:
+- name: resize-service
+  buildpack: https://github.com/cloudfoundry/java-buildpack.git#v4.5.2
+  memory: 1G
+  disk_quota: 256M
+  host: resize-service
+  instances: 1
+  stack: cflinuxfs2
+  env:
+    JAVA_OPTS: '-Xmx768m'
+
+services:
+- config
+- eureka
+- rabbitmq

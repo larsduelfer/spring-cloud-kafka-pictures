@@ -1,0 +1,24 @@
+<div class="container-fluid search-container">
+  <ngb-tabset #ngbtabsetsearch class="ngb-tabset-search" (tabChange)="onTabChange($event)">
+    <ngb-tab id="ngb-tabset-search-photos">
+      <ng-template ngbTabTitle>
+        Photos
+      </ng-template>
+      <ng-template ngbTabContent>
+        <div class="search-result-list">
+          <app-picture-card *ngFor="let pic of (pictures$ | async)?.content" [picture]="pic"></app-picture-card>
+        </div>
+      </ng-template>
+    </ngb-tab>
+    <ngb-tab id="ngb-tabset-search-people">
+      <ng-template ngbTabTitle>
+        People
+      </ng-template>
+      <ng-template ngbTabContent>
+        <div class="search-result-list">
+          <app-user-card *ngFor="let usr of (users$ | async)?.content" [user]="usr"></app-user-card>
+        </div>
+      </ng-template>
+    </ngb-tab>
+  </ngb-tabset>
+</div>

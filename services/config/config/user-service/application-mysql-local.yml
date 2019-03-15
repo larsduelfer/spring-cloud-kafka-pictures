@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3307/user?user=mysql&password=secret&useSSL=false
+  flyway:
+    locations: classpath:db/migration/mysql

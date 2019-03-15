@@ -1,0 +1,22 @@
+kafka:
+  channels:
+    user:
+      topic: "local.user"
+      partitions: 3
+    image:
+      topic: "local.image"
+      partitions: 3
+    comment:
+      topic: "local.comment"
+      partitions: 3
+
+#spring:
+ # kafka:
+    #producer:
+    #  properties:
+        #Interceptor class needed to monitor producers when using kafka enterprise
+        #interceptor.classes: io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor
+    #consumer:
+    #  properties:
+        #Interceptor class needed to monitor consumers when using kafka enterprise
+        #interceptor.classes: io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor

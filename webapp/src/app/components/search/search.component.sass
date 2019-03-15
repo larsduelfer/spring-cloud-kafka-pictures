@@ -1,0 +1,30 @@
+.container-fluid
+  padding-left: 0px
+  padding-right: 0px
+
+div.search-container
+  display: flex
+  flex-direction: column
+  .ngb-tabset-search
+    margin-top: 18px
+    //The /deep/ is necessary to enforce overwriting of child component's css
+    //https://angular.io/guide/component-styles#deprecated-deep--and-ng-deep
+    /deep/ .nav
+      margin: 0
+      padding-left: 18px
+    
+    /deep/ .tab-content
+      padding: 10px
+
+.search-result-list
+  display: flex
+  flex-direction: row
+  flex-wrap: wrap
+  justify-content: center
+  align-content: flex-start
+
+  app-picture-card
+    margin: 10px
+  
+  app-user-card
+    margin: 10px

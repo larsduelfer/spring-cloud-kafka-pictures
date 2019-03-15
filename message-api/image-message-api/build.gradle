@@ -1,0 +1,43 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
+
+plugins {
+    id 'java'
+    id 'maven-publish'
+}
+
+sourceCompatibility = 1.8
+
+//Publish the app to local maven repository by executing
+//./gradlew clean build publishToMavenLocal
+publishing {
+    repositories {
+        mavenLocal()
+    }
+    publications {
+        mavenJava(MavenPublication) {
+            ext.repo = 'mavenLocal'
+            from components.java
+            pom {
+                name = project.getName()
+                description = "Image Message API Library"
+            }
+        }
+    }
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly('org.projectlombok:lombok:1.18.4')
+    compile('info.novatec.spring.showcase:common-api:0.0.1-SNAPSHOT')
+    testCompile('junit:junit:4.12')
+}
+
+evaluationDependsOn(':common-api')

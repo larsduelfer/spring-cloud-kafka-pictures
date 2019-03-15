@@ -1,0 +1,13 @@
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: http://localhost:12080/root/config.git
+          username: root
+          password: showcase
+          searchPaths:
+          - "default/"
+          - "{application}/"
+
+#To activate the git based config run the app with: -Dspring.profiles.active=git-local

@@ -1,0 +1,28 @@
+.gradle
+/build/
+!gradle/wrapper/gradle-wrapper.jar
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+
+### NetBeans ###
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+### Visual Studio ###
+bin/
+obj/
+
+### Others ###
+classes/
+services/scripts/git/gitbucket-data/
+services/scripts/git/gitbucket.war

@@ -1,0 +1,11 @@
+pluginManagement {
+    repositories {
+        mavenCentral()
+    }
+}
+
+include 'common-api'
+include 'user-message-api'
+include 'image-message-api'
+include 'comment-message-api'
+

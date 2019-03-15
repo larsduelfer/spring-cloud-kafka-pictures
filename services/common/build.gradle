@@ -1,0 +1,44 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'maven-publish'
+
+group = 'info.novatec.spring.showcase'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+//Publish the app to local maven repository by executing
+//./gradlew clean build publishToMavenLocal
+publishing {
+    repositories {
+        mavenLocal()
+    }
+    publications {
+        mavenJava(MavenPublication) {
+            ext.repo = 'mavenLocal'
+            from components.java
+            pom {
+                name = project.getName()
+                description = "Common Library"
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+            }
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly('org.projectlombok:lombok:1.18.4')
+}

@@ -1,0 +1,8 @@
+spring:
+  data:
+    cassandra:
+      keyspaceName: showcase
+      clusterName: "Test Cluster"
+      contactPoints: localhost
+      port: 9042
+      schemaAction: CREATE_IF_NOT_EXISTS

@@ -1,0 +1,74 @@
+.container-fluid
+  display: flex
+  flex-direction: column
+  align-content: stretch
+  height: calc(100vh - 56px)
+  overflow: hidden
+
+.picture-card
+  margin-top: 16px
+  margin-bottom: 16px
+  //padding-bottom: 16px
+  height: 100%
+  width: 100%
+  display: flex
+  flex-direction: column
+
+.picture-card-header-image
+  background-size: cover
+
+.picture-card .comment-title
+  padding-bottom: 10px
+  padding-left: 0px
+
+.picture-card .mat-card-content
+  margin-left: 0px
+  margin-bottom: 7px
+
+.picture-card .mb-3
+  margin-bottom: 0px !important
+
+.picture-card .mat-card-actions
+  padding: 0px
+  padding-bottom: 0px
+
+.picture-card .picture-card-reaction
+  height: 23px
+  display: flex
+
+.picture-card .picture-card-reaction-text
+  align-self: flex-end
+
+.picture-card .picture-card-reaction-comments-container
+  overflow-y: auto
+  max-height: 150px
+  margin-top: 10px
+
+.picture-card .picture-card-reaction-comments
+  margin-bottom: 0px
+
+.picture-card .picture-card-reaction-new-comment
+  padding-top: 10px
+
+.picture-card .picture-card-reaction-padding
+  padding-right: 8px
+
+.picture-card /deep/ .mat-card-title
+  margin-bottom: 12px
+
+.picture-card /deep/ .mat-card-image
+  margin-top: 0px
+  width: auto
+  max-height: 74vh
+  //max-height: 75vh
+  //max-width: 100vw
+
+.picture-fullsize-image
+  width:  100%
+  height: 100% /*or 70%, or what you want*/
+  max-height: 71vh /*or 70%, or what you want*/
+  background-size: contain
+  background-position: center
+  background-repeat: no-repeat
+  margin-bottom: 15px
+  margin-top: 15px

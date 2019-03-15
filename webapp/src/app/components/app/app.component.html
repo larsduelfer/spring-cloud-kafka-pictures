@@ -1,0 +1,64 @@
+<header>
+  <nav class="navbar navbar-expand-sm navbar-dark bg-secondary navbar-static-top">
+    <a class="navbar-brand" routerLink="/dashboard">Pictures</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse" id="navbarContent">
+      <form class="form-inline" (keydown.enter)="$event.preventDefault()">
+        <div class="input-group">
+          <div class="input-group-prepend" (click)="search(searchBox.value)">
+            <span class="input-group-text" octicon="search" color="dark"></span>
+          </div>
+          <input #searchBox class="form-control" type="text" (keyup.enter)="search(searchBox.value)" placeholder="Search for photos or people" [(ngModel)]="searchTerm" [ngModelOptions]="{standalone: true}">
+        </div>
+      </form>
+      <div class="nav-item" *ngIf="!loggedIn">
+        <a class="nav-link text-white" href="javascript:void(0)" (click)="login()">Login</a>
+      </div>
+      <div class="nav-item" *ngIf="loggedIn">
+        <a class="nav-link text-white" href="javascript:void(0)" (click)="logout()">Logout</a>
+      </div>
+      <div class="nav-item" *ngIf="!registered && !loggedIn">
+        <a class="btn btn-light" routerLink="/sign-up">Sign Up</a>
+      </div>
+      <div class="nav-item" *ngIf="!registered && loggedIn">
+        <a class="btn btn-light" routerLink="/register">Finish Registration</a>
+      </div>
+      <div class="nav-item" *ngIf="registered && loggedIn">
+        <a class="btn btn-light" (click)="open(upload)">Upload</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<main>
+  <router-outlet></router-outlet>
+  <div>
+    <ng-template #upload let-modal>
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Upload an image</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="title-form" [formGroup]="uploadImageFormGroup" (ngSubmit)="uploadImage()">
+          <input class="uploader" type="file" ng2FileSelect [uploader]="uploader"/>
+          <div *ngIf="errorMessage" class="alert alert-secondary" role="alert">
+              {{errorMessage}}
+          </div>
+          <mat-form-field class="title-input-field">
+            <input matInput #title maxlength="256" placeholder="Enter title" formControlName="title">
+            <mat-hint align="end">{{title.value.length}} / 256</mat-hint>
+            <mat-error [hidden]="!uploadImageFormGroup.controls['title'].errors">
+              Invalid title
+            </mat-error>
+          </mat-form-field>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" [disabled]="!uploadImageFormGroup.valid || !uploader.getNotUploadedItems().length" (click)="modal.close('Save click')">Save</button>
+      </div>
+    </ng-template>
+  </div>
+</main>

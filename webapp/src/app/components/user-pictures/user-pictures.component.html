@@ -1,0 +1,3 @@
+<div class="user-picture-list">
+  <app-picture-card *ngFor="let pic of (pictures$ | async)?.content" [picture]="pic" [showHeader]="false" [showActions]="false"></app-picture-card>
+</div>

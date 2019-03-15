@@ -1,0 +1,54 @@
+<div class="container-fluid">
+  <mat-card class="picture-card">
+    <mat-card-header>
+      <div mat-card-avatar class="picture-card-header-image" [ngStyle]="{'background-image': 'url(' + (profilePictureUrl$ | async) + ')'}"></div>
+      <ng-template #content let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">Update title</h4>
+          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form class="title-form" [formGroup]="updateTitleFormGroup" (ngSubmit)="updateTitle()">
+            <mat-form-field class="title-input-field">
+              <input matInput #title maxlength="256" placeholder="Enter title" formControlName="title" value="{{(picture$ | async)?.title}}">
+              <mat-hint align="end">{{title.value.length}} / 256</mat-hint>
+              <mat-error [hidden]="!updateTitleFormGroup.controls['title'].errors">
+                Invalid title
+              </mat-error>
+            </mat-form-field>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-dark" [disabled]="!updateTitleFormGroup.valid" (click)="modal.close('Save click')">Save</button>
+        </div>
+      </ng-template>
+      <mat-card-title>
+        <a class="text-dark" routerLink="/users/{{(user$ | async)?.identifier}}">{{(user$ | async)?.displayName}}</a>
+      </mat-card-title>
+      <mat-card-subtitle *ngIf="(picture$ | async)?._links?.updateTitle !== undefined">{{(picture$ | async)?.title}} <span octicon="pencil" color="dark" (click)="open(content)"></span></mat-card-subtitle>
+      
+    </mat-card-header>
+    <div class="picture-fullsize-image" [ngStyle]="{'background-image': 'url(' + (pictureMediumUrl$ | async) + ')'}"></div>
+    <mat-card-content>
+      <div class="picture-card-reaction">
+        <span class="picture-card-reaction-padding" octicon="comment-discussion" color="dark"></span>
+        <a class="picture-card-reaction-text" href="javascript:void(0)" (click)="toggleComments()">{{commentLinkDescription()}}</a>
+      </div>
+      <div class="picture-card-reaction-comments-container" [ngbCollapse]="commentsCollapsed">
+        <app-comment *ngFor="let c of (comments$ | async)?.comments" [comment]="c"></app-comment>
+      </div>
+      <div *ngIf="(picture$ | async)?._links?.addComment !== undefined" class="input-group input-group-sm mb-3 picture-card-reaction-new-comment" [ngbCollapse]="commentsCollapsed">
+        <input type="text" class="form-control" placeholder="Write a comment..." #newComment>
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="addComment()">Add</button>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button *ngIf="(picture$ | async)?._links?.addComment !== undefined" mat-button (click)="toggleComments()">{{commentButtonDescription()}}</button>
+      <button mat-button (click)="downloadPicture()">DOWNLOAD</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

@@ -1,0 +1,22 @@
+<div [@fadeAnimation]="'in'">
+  <ngb-carousel class="ngb-carousel" *ngIf="images" [showNavigationArrows]="showNavigationArrows" [showNavigationIndicators]="showNavigationIndicators">
+    <ng-template ngbSlide *ngFor="let image of images">
+      <div [@fadeTextAnimation] class="carousel-content" [style.background-image]="'url(' + image + ')'">
+        <div *ngIf="!loggedIn" class="carousel-caption">
+          <h1>Find your inspiration.</h1>
+          <h2>Join the Pictures community, home of thousands of photos and users.</h2>
+          <button class="signup-send-button" mat-stroked-button routerLink="/sign-up">Sign Up</button>
+        </div>
+        <div [@fadeTextAnimation] *ngIf="loggedIn && !registered" class="carousel-caption">
+          <h1>Find your inspiration.</h1>
+          <h2>Join the Pictures community, home of thousands of photos and users.</h2>
+          <button class="signup-send-button" mat-stroked-button routerLink="/register">Finish Registration</button>
+        </div>
+        <div [@fadeTextAnimation] *ngIf="loggedIn && registered" class="carousel-caption">
+          <h1>Hello {{user$ | async}}.</h1>
+          <h2>Enjoy the Pictures community, home of thousands of photos and users.</h2>
+        </div>
+      </div>
+    </ng-template>
+  </ngb-carousel>
+</div>

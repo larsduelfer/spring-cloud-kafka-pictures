@@ -1,0 +1,16 @@
+pluginManagement {
+    repositories {
+        mavenCentral()
+    }
+}
+
+include 'config'
+include 'eureka'
+include 'gateway'
+include 'resize-service'
+include 'search-service'
+include 'storage-service'
+include 'user-service'
+include 'comment-service'
+include 'common'
+

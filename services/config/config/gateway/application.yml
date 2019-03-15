@@ -1,0 +1,42 @@
+spring:
+  cloud:
+    gateway:
+      forwarded:
+        enabled: true
+      x-forwarded:
+        enabled: true
+      globalcors:
+        # Debug GlobalCorsProperties to check properties
+        # Available when the method is entered the second time
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+            - "http://localhost:4200"
+            allowedMethods:
+            - "*"
+            allowedHeaders:
+            - "Authorization"
+            - "Content-Type"
+      discovery:
+        locator:
+          enabled: true
+      routes:
+      - id: comment
+        uri: lb://comment-service
+        predicates:
+        - Path=/images/{id}/comments
+      - id: storage
+        uri: lb://storage-service
+        predicates:
+        - Path=/images/{id}/binaries/**,/images/binaries,/users/{id}/binaries
+      - id: users
+        uri: lb://user-service
+        predicates:
+        - Path=/users/current
+      - id: search
+        uri: lb://search-service
+        predicates:
+        - Path=/images/**,/users/{id}/**
+
+server:
+  port: 9000

@@ -1,0 +1,10 @@
+spring:
+  jpa:
+    properties:
+      hibernate:
+        id:
+          new_generator_mappings: false
+        implicit_naming_strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+        physical_naming_strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+        order_inserts: true
+        order_updates: true

@@ -1,0 +1,7 @@
+eureka:
+  client:
+    registryFetchIntervalSeconds: 3
+    serviceUrl:
+      defaultZone: http://eureka:secret@localhost:10010/eureka/
+  instance:
+    leaseRenewalIntervalInSeconds: 3

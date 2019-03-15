@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: user-service
+  cloud:
+    config:
+      uri: http://localhost:10000
+      username: config
+      password: secret
+
+---
+spring:
+  profiles: cloud
+  cloud:
+    config:
+      uri: ${vcap.services.config.credentials.url}
+      username: ${vcap.services.config.credentials.username}
+      password: ${vcap.services.config.credentials.password}

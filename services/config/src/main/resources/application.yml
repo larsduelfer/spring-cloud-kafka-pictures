@@ -1,0 +1,16 @@
+#Define username and password in properties style.
+spring.security.user.name: config
+spring.security.user.password: secret
+
+server:
+  port: 10000
+
+spring:
+  application:
+    name: config
+
+logging:
+  level:
+    root: INFO
+
+#Check if config server works as expected by opening: http://localhost:10000/resize-service/default

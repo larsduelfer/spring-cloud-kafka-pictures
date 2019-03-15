@@ -1,0 +1,32 @@
+<mat-card class="picture-card" [style.padding-top]="getPaddingTop()" [style.padding-bottom]="getPaddingBottom()">
+  <mat-card-header *ngIf="showHeader">
+    <div mat-card-avatar class="picture-card-header-image" [style.background-image]="profilePictureUrl()"></div>
+    <mat-card-title>
+      <a class="text-dark" routerLink="/users/{{userIdentifier()}}">{{userDisplayName()}}</a>
+    </mat-card-title>
+    <mat-card-subtitle>{{picture.title}}</mat-card-subtitle>
+  </mat-card-header>
+  <div class="picture-card-header-simple" *ngIf="!showHeader">{{picture.title}}</div>
+  <a class="picture-card-picture-link" routerLink="/pictures/{{picture.identifier}}">
+	<div class="mat-card-image" [style.background-image]="pictureUrl()"></div>
+  </a>
+  <mat-card-content>
+    <div class="picture-card-reaction">
+      <span class="picture-card-reaction-padding" octicon="comment-discussion" color="dark"></span>
+      <a class="picture-card-reaction-text" href="javascript:void(0)" (click)="toggleComments()">{{commentLinkDescription()}}</a>
+    </div>
+    <div class="picture-card-reaction-comments-container" [ngbCollapse]="commentsCollapsed">
+      <app-comment *ngFor="let c of (comments$ | async)?.comments" [comment]="c"></app-comment>
+    </div>
+    <div *ngIf="picture?._links?.addComment !== undefined" class="input-group input-group-sm mb-3 picture-card-reaction-new-comment" [ngbCollapse]="commentsCollapsed">
+      <input type="text" class="form-control" placeholder="Write a comment..." #newComment>
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="addComment()">Add</button>
+      </div>
+    </div>
+  </mat-card-content>
+  <mat-card-actions *ngIf="showActions">
+    <button *ngIf="picture?._links?.addComment !== undefined" mat-button (click)="toggleComments()">{{commentButtonDescription()}}</button>
+    <button mat-button (click)="downloadPicture()">DOWNLOAD</button>
+  </mat-card-actions>
+</mat-card>
