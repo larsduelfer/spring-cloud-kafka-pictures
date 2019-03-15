@@ -41,6 +41,9 @@ To start / stop the identity server run: `./is-up.sh` or `./is-down.sh`.
 
 To start / stop the other services run `./services-up.sh` or `./services-down.sh`.
 
+Some docker volume remains after stopping the containers (few hundred megabytes per run).
+To clean up run `./docker-cleanup.sh`.
+
 ### Initialize kafka / databases
 
 Navigate to the directory "scripts/dev".
@@ -52,7 +55,7 @@ Run the `./init.sh` script.
 #### Start the webapp
 Add some background pictures to the directory webapp/src/assets/images/
 
-Expected are with pictures with the name `background1.jpg` .. `background5.jpg`.
+Expected are pictures with the name `background1.jpg` .. `background5.jpg`.
 This can be adjusted in the file src/app/components/dashboard/dashboard.component.ts
 
 Navigate to the webapp directory and run:
@@ -101,11 +104,6 @@ A few tools are added to get some insights, what's happening in the application.
 ### Zipkin
 Zipkin is started as docker container and can be accessed at [http://localhost:9411/](http://localhost:9411/)
 
-### Config server
-The config server can be accessed at [http://localhost:10000/resize-service/kafka-local](http://localhost:10000/resize-service/kafka-local)
-
-Login with config:secret
-
 ### Eureka Dashboard
 The eureka dashboard can be access at [http://localhost:10010/](http://localhost:10010/)
 
@@ -113,3 +111,9 @@ The eureka dashboard can be access at [http://localhost:10010/](http://localhost
 
 ### Kafka Topics UI
 The topics UI can be accessed at [http://localhost:8000/](http://localhost:8000/)
+
+### Config Server
+The config server can be accessed at `http://localhost:10000/<service-name>/<profile>`
+for example [http://localhost:10000/resize-service/kafka-local](http://localhost:10000/resize-service/kafka-local)
+
+Login with config:secret
