@@ -50,6 +50,11 @@ Run the `./init.sh` script.
 ### Start the applications
 
 #### Start the webapp
+Add some background pictures to the directory webapp/src/assets/images/
+
+Expected are with pictures with the name `background1.jpg` .. `background5.jpg`.
+This can be adjusted in the file src/app/components/dashboard/dashboard.component.ts
+
 Navigate to the webapp directory and run:
 
 `npm install` and `ng serve`
