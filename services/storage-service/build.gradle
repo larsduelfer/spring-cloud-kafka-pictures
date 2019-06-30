@@ -50,7 +50,6 @@ dependencies {
     compile('io.confluent:monitoring-interceptors:5.2.2')
     compile('org.apache.commons:commons-lang3:3.9')
     compile('org.apache.kafka:kafka-clients:2.2.1-cp1')
-    compile('org.springframework.amqp:spring-rabbit')
     compile('org.springframework.boot:spring-boot-starter-actuator')
     compile('org.springframework.boot:spring-boot-starter-data-mongodb')
     compile("org.springframework.boot:spring-boot-starter-hateoas")

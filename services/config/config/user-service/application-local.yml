@@ -1,3 +1,3 @@
 spring:
   profiles:
-    include: default, jpa, flyway, mysql-local, rabbitmq-local, kafka-local, eureka-local, idp-local
+    include: default, jpa, flyway, mysql-local, kafka-local, eureka-local, idp-local

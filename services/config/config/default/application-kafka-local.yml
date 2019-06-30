@@ -16,6 +16,9 @@ spring:
       reconnect.backoff.ms: 2000
       reconnect.backoff.max.ms: 15000
       retry.backoff.ms: 5000
+  zipkin:
+    sender:
+      type: kafka
 
   profiles:
     include: kafka

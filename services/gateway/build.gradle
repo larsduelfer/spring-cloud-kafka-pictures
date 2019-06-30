@@ -32,14 +32,14 @@ ext {
 }
 
 dependencies {
-    compile('org.springframework.amqp:spring-rabbit')
-    compile('org.springframework.boot:spring-boot-starter-actuator')
+	compile('org.apache.kafka:kafka-clients:2.2.1-cp1')
+	compile('org.springframework.boot:spring-boot-starter-actuator')
     compile('org.springframework.cloud:spring-cloud-starter-config')
     compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
     compile('org.springframework.cloud:spring-cloud-starter-sleuth')
-    compile('org.springframework.cloud:spring-cloud-starter-stream-rabbit')
     compile('org.springframework.cloud:spring-cloud-starter-zipkin')
 	compile('org.springframework.cloud:spring-cloud-sleuth-core')
+	compile('org.springframework.kafka:spring-kafka')
 
 	implementation('org.springframework.cloud:spring-cloud-starter-gateway')
 	testImplementation('org.springframework.boot:spring-boot-starter-test')

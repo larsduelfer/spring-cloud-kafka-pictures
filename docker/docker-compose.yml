@@ -87,21 +87,6 @@ services:
       test: "nc -z 127.0.0.1 3306 || exit 1"
       interval: 3s
       retries: 100
-
-  rabbitmq:
-    container_name: rabbitmq
-    hostname: rabbitmq
-    build: ./rabbitmq
-    environment:
-      - RABBITMQ_DEFAULT_USER=rabbitmq
-      - RABBITMQ_DEFAULT_PASS=secret
-    ports:
-      - "15672:15672"
-      - "5672:5672"
-    healthcheck:
-      test: "nc -z 127.0.0.1 15672 || exit 1"
-      interval: 3s
-      retries: 100
   
   zipkin:
     container_name: zipkin
@@ -111,13 +96,11 @@ services:
     environment:
       - STORAGE_TYPE=elasticsearch
       - ES_HOSTS=elasticsearch
-      - RABBIT_ADDRESSES=rabbitmq:5672
-      - RABBIT_USER=rabbitmq
-      - RABBIT_PASSWORD=secret
+      - KAFKA_BOOTSTRAP_SERVERS=broker:9092
     ports:
       - "9411:9411"
     depends_on:
-      rabbitmq:
+      broker:
         condition: service_healthy
       elasticsearch:
         condition: service_healthy
@@ -167,6 +150,10 @@ services:
       - KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR=1
       - KAFKA_TRANSACTION_STATE_LOG_MIN_ISR=1
       - CONFLUENT_SUPPORT_METRICS_ENABLED=false
+    healthcheck:
+      test: "nc -z 127.0.0.1 9092 || exit 1"
+      interval: 3s
+      retries: 100
 
   kafka-rest-proxy:
     container_name: kafka-rest-proxy
