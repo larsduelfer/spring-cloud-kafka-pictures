@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.imaging.ImageReadException;
 import org.apache.commons.imaging.ImageWriteException;
 import org.apache.commons.imaging.Imaging;
-import org.apache.commons.imaging.common.IImageMetadata;
+import org.apache.commons.imaging.common.ImageMetadata;
 import org.apache.commons.imaging.formats.jpeg.JpegImageMetadata;
 import org.apache.commons.imaging.formats.jpeg.exif.ExifRewriter;
 import org.apache.commons.imaging.formats.tiff.constants.ExifTagConstants;
@@ -30,7 +30,7 @@ public final class ExifDataCopyUtil {
       return null;
     }
     try {
-      IImageMetadata metaData = Imaging.getMetadata(image);
+      ImageMetadata metaData = Imaging.getMetadata(image);
       if (metaData instanceof JpegImageMetadata) {
         return ((JpegImageMetadata) metaData).getExif().getOutputSet();
       }

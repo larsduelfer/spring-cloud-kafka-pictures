@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Comment" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="info.novatec.spring.showcase.comment.CommentServiceApplication" />
-    <module name="comment-service_main" />
+    <module name="services.comment-service.main" />
     <option name="VM_PARAMETERS" value="-Dspring.profiles.active=local -Dkafka.transaction.id.prefix.comment=comment-instance-1-" />
     <extension name="coverage">
       <pattern>

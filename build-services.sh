@@ -11,9 +11,6 @@ cd -
 cd services/gateway
 ./gradlew clean build
 cd -
-cd services/hystrix
-./gradlew clean build
-cd -
 cd services/search-service
 ./gradlew clean build
 cd -
@@ -23,9 +20,9 @@ cd -
 cd services/storage-service
 ./gradlew clean build
 cd -
-cd services/turbine
+cd services/user-service
 ./gradlew clean build
 cd -
-cd services/user-service
+cd services/comment-service
 ./gradlew clean build
 cd -

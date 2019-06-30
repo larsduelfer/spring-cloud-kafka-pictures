@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Resize" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="info.novatec.spring.showcase.resize.ResizeServiceApplication" />
-    <module name="resize-service_main" />
+    <module name="services.resize-service.main" />
     <option name="VM_PARAMETERS" value="-Dspring.profiles.active=local -Dkafka.transaction.id.prefix.resize=resize-instance-1-" />
     <extension name="coverage">
       <pattern>

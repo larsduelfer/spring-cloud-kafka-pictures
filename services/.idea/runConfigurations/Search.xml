@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Search" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="info.novatec.spring.showcase.search.SearchServiceApplication" />
-    <module name="search-service_main" />
+    <module name="services.search-service.main" />
     <option name="VM_PARAMETERS" value="-Dspring.profiles.active=local -Dkafka.transaction.id.prefix.search=search-instance-1-" />
     <extension name="coverage">
       <pattern>

@@ -35,9 +35,8 @@ repositories {
 }
 
 dependencies {
-    compileOnly('org.projectlombok:lombok:1.18.4')
+    compileOnly('org.projectlombok:lombok:1.18.8')
     compile('info.novatec.spring.showcase:common-api:0.0.1-SNAPSHOT')
-    testCompile('junit:junit:4.12')
 }
 
 evaluationDependsOn(':common-api')

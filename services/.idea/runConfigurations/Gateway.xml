@@ -1,8 +1,8 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Gateway" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="info.novatec.spring.showcase.gateway.GatewayApplication" />
-    <module name="gateway_main" />
-    <option name="VM_PARAMETERS" value="-Dspring.profiles.active=local -Dlogging.level.root=DEBUG" />
+    <module name="services.gateway.main" />
+    <option name="VM_PARAMETERS" value="-Dspring.profiles.active=local" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="info.novatec.spring.showcase.gateway.*" />
