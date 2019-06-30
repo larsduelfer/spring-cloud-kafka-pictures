@@ -2,7 +2,7 @@ spring:
   cloud:
     gateway:
       forwarded:
-        enabled: true
+        enabled: false
       x-forwarded:
         enabled: true
       globalcors:
