@@ -54,6 +54,10 @@ services:
     ports:
       - "9200:9200"
       - "9300:9300"
+    healthcheck:
+      test: "nc -z 127.0.0.1 9200 || exit 1"
+      interval: 3s
+      retries: 100
 
   elastichq:
     image: elastichq/elasticsearch-hq
@@ -63,6 +67,10 @@ services:
       - "HQ_DEFAULT_URL=http://elasticsearch:9200"
     ports:
       - "5010:5000"
+    healthcheck:
+      test: "nc -z 127.0.0.1 5000 || exit 1"
+      interval: 3s
+      retries: 100
 
   user-mysql:
     container_name: user-mysql
@@ -95,25 +103,14 @@ services:
       interval: 3s
       retries: 100
   
-  zipkin-storage:
-    container_name: mysql
-    hostname: mysql
-    image: openzipkin/zipkin-mysql:2
-    ports:
-      - "3306:3306"
-    healthcheck:
-      test: "nc -z 127.0.0.1 3306 || exit 1"
-      interval: 3s
-      retries: 100
-
   zipkin:
     container_name: zipkin
     hostname: zipkin
     image: openzipkin/zipkin:2
     # Environment settings are defined here https://github.com/openzipkin/zipkin/tree/1.19.0/zipkin-server#environment-variables
     environment:
-      - STORAGE_TYPE=mysql
-      - MYSQL_HOST=mysql
+      - STORAGE_TYPE=elasticsearch
+      - ES_HOSTS=elasticsearch
       - RABBIT_ADDRESSES=rabbitmq:5672
       - RABBIT_USER=rabbitmq
       - RABBIT_PASSWORD=secret
@@ -122,7 +119,7 @@ services:
     depends_on:
       rabbitmq:
         condition: service_healthy
-      zipkin-storage:
+      elasticsearch:
         condition: service_healthy
     healthcheck:
       test: "nc -z 127.0.0.1 9411 || exit 1"
@@ -135,16 +132,10 @@ services:
     image: openzipkin/zipkin-dependencies:2
     entrypoint: crond -f
     environment:
-      - STORAGE_TYPE=mysql
-      - MYSQL_HOST=mysql
-      - MYSQL_USER=zipkin
-      - MYSQL_PASS=zipkin
-      # Uncomment to see dependency processing logs
-      # - ZIPKIN_LOG_LEVEL=DEBUG
-      # Uncomment to adjust memory used by the dependencies job
-      # - JAVA_OPTS=-verbose:gc -Xms1G -Xmx1G
+      - STORAGE_TYPE=elasticsearch
+      - ES_HOSTS=elasticsearch
     depends_on:
-      zipkin-storage:
+      elasticsearch:
         condition: service_healthy
 
   zookeeper:
