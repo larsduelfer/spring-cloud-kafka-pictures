@@ -2,7 +2,7 @@
   <configuration default="false" name="Resize" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="info.novatec.spring.showcase.resize.ResizeServiceApplication" />
     <module name="services.resize-service.main" />
-    <option name="VM_PARAMETERS" value="-Dspring.profiles.active=local -Dkafka.transaction.id.prefix.resize=resize-instance-1-" />
+    <option name="VM_PARAMETERS" value="-Dspring.profiles.active=local" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="info.novatec.spring.showcase.storage.*" />

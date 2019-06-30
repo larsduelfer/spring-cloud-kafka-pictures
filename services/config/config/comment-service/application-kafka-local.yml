@@ -1,45 +1,12 @@
 spring:
   kafka:
-    clientId: "local.comment.client"
+    clientId: "local.comment.service"
     producer:
-      keySerializer: org.apache.kafka.common.serialization.StringSerializer
-      valueSerializer: org.springframework.kafka.support.serializer.JsonSerializer
-      acks: all
-      #If you are running multiple instances of the same app concurrently, each app instance needs a unique prefix.
-      #Otherwise you'll get transaction.id collisions. It is not a good idea to use a random UUID, since if the app crashes
-      #it will generate a new one (on restart) instead of using the last prefix to resume ongoing transactions.
-      #https://github.com/spring-projects/spring-kafka/issues/580
-      #Set value into an environment variable.
-      transactionIdPrefix: ${kafka.transaction.id.prefix.comment}
-      properties:
-        #The maximum number of unacknowledged requests the client will send on a single connection before blocking.
-        #If this setting is greater than 1, pipelining is used when the producer sends the grouped batch to the
-        #broker. This improves throughput, but if there are failed sends there is a risk of out-of-order delivery
-        #due to retries (if retries are enabled).
-        max.in.flight.requests.per.connection: 1
+      transactionIdPrefix: local-comment-service-
     consumer:
-      keyDeserializer: org.apache.kafka.common.serialization.StringDeserializer
-      valueDeserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-      enableAutoCommit: false
       group-id: local.comment
       properties:
-        auto.offset.reset: earliest
-        request.timeout.ms: 30000
-        max.poll.records: 20
-        spring:
-          json:
-            trusted:
-              # Use specific packages or * for all packages, cannot be combined together
-              packages: 'info.novatec.spring.showcase.user.message.v1.resource,info.novatec.spring.showcase.image.message.v1.resource'
-    listener:
-      concurrency: 3
-    bootstrap-servers: localhost:9092
+        # Use specific packages or * for all packages, cannot be combined together
+        spring.json.trusted.packages: 'info.novatec.spring.showcase.user.message.v1.resource,info.novatec.spring.showcase.image.message.v1.resource'
   profiles:
-    include: kafka
-
-kafka:
-  retry:
-    initialInterval: 1000
-    maxAttempts: 5
-    maxInterval: 32000
-    multiplier: 2
+    include: kafka-producer, kafka-consumer

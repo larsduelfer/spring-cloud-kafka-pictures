@@ -1,0 +1,19 @@
+spring:
+  kafka:
+    consumer:
+      keyDeserializer: org.apache.kafka.common.serialization.StringDeserializer
+      valueDeserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      enableAutoCommit: false
+      properties:
+        auto.offset.reset: earliest
+        request.timeout.ms: 30000
+        max.poll.records: 20
+    listener:
+      concurrency: 3
+
+kafka:
+  retry:
+    initialInterval: 1000
+    maxAttempts: 5
+    maxInterval: 32000
+    multiplier: 2

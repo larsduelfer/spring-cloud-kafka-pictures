@@ -2,7 +2,7 @@
   <configuration default="false" name="Comment" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="info.novatec.spring.showcase.comment.CommentServiceApplication" />
     <module name="services.comment-service.main" />
-    <option name="VM_PARAMETERS" value="-Dspring.profiles.active=local -Dkafka.transaction.id.prefix.comment=comment-instance-1-" />
+    <option name="VM_PARAMETERS" value="-Dspring.profiles.active=local" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="info.novatec.spring.showcase.storage.*" />
