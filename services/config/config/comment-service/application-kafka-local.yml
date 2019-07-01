@@ -1,6 +1,6 @@
 spring:
   kafka:
-    clientId: "local.comment.service"
+    clientId: "local.comment.service.zipkin"
     producer:
       transactionIdPrefix: local-comment-service-
     consumer:
@@ -8,5 +8,7 @@ spring:
       properties:
         # Use specific packages or * for all packages, cannot be combined together
         spring.json.trusted.packages: 'info.novatec.spring.showcase.user.message.v1.resource,info.novatec.spring.showcase.image.message.v1.resource'
+    properties:
+      clientId.app: "local.comment.service"
   profiles:
     include: kafka-producer, kafka-consumer

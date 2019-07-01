@@ -25,7 +25,7 @@ public class UserMessagingController {
 
   @KafkaListener(
       topics = "#{topicConfiguration.getTopicForChannel('user')}",
-      clientIdPrefix = "${spring.kafka.clientId}.user")
+      clientIdPrefix = "${spring.kafka.properties.clientId.app}.user")
   public void listenToUserEvents(Acknowledgment ack, Event event) {
     if (event instanceof UserCreatedEvent) {
       UserCreatedEvent userCreatedEvent = (UserCreatedEvent) event;

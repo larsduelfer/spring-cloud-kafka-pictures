@@ -1,6 +1,7 @@
 package info.novatec.spring.showcase.user.configuration.messaging;
 
 import info.novatec.spring.showcase.common.Event;
+import org.apache.kafka.clients.producer.ProducerConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.context.annotation.Bean;
@@ -12,6 +13,8 @@ import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.transaction.KafkaTransactionManager;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.transaction.support.AbstractPlatformTransactionManager;
+
+import java.util.Map;
 
 @Profile("kafka")
 @Configuration
@@ -57,8 +60,11 @@ public class KafkaConfiguration {
 
   @Bean
   public ProducerFactory<?, ?> kafkaProducerFactory() {
+    Map<String, Object> producerProperties = kafkaProperties.buildProducerProperties();
+    producerProperties.put(
+        ProducerConfig.CLIENT_ID_CONFIG, kafkaProperties.getProperties().get("clientId.app"));
     DefaultKafkaProducerFactory<String, Event> producerFactory =
-        new DefaultKafkaProducerFactory<>(kafkaProperties.buildProducerProperties());
+        new DefaultKafkaProducerFactory<>(producerProperties);
     producerFactory.setTransactionIdPrefix(kafkaProperties.getProducer().getTransactionIdPrefix());
     return producerFactory;
   }

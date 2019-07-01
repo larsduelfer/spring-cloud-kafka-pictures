@@ -1,6 +1,7 @@
 package info.novatec.spring.showcase.comment.configuration.messaging;
 
 import info.novatec.spring.showcase.common.Event;
+import org.apache.kafka.clients.producer.ProducerConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -21,6 +22,8 @@ import org.springframework.retry.backoff.ExponentialBackOffPolicy;
 import org.springframework.retry.policy.SimpleRetryPolicy;
 import org.springframework.retry.support.RetryTemplate;
 import org.springframework.transaction.support.AbstractPlatformTransactionManager;
+
+import java.util.Map;
 
 @Profile("kafka")
 @Configuration
@@ -55,13 +58,19 @@ public class KafkaConfiguration {
 
   @Bean
   public ConsumerFactory<Object, Object> kafkaConsumerFactory() {
-    return new DefaultKafkaConsumerFactory<>(kafkaProperties.buildConsumerProperties());
+    Map<String, Object> consumerProperties = kafkaProperties.buildConsumerProperties();
+    consumerProperties.put(
+        ProducerConfig.CLIENT_ID_CONFIG, kafkaProperties.getProperties().get("clientId.app"));
+    return new DefaultKafkaConsumerFactory<>(consumerProperties);
   }
 
   @Bean
   public ProducerFactory<?, ?> kafkaProducerFactory() {
+    Map<String, Object> producerProperties = kafkaProperties.buildProducerProperties();
+    producerProperties.put(
+        ProducerConfig.CLIENT_ID_CONFIG, kafkaProperties.getProperties().get("clientId.app"));
     DefaultKafkaProducerFactory<String, Event> producerFactory =
-        new DefaultKafkaProducerFactory<>(kafkaProperties.buildProducerProperties());
+        new DefaultKafkaProducerFactory<>(producerProperties);
     producerFactory.setTransactionIdPrefix(kafkaProperties.getProducer().getTransactionIdPrefix());
     return producerFactory;
   }

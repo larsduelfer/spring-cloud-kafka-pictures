@@ -1,7 +1,9 @@
 spring:
   kafka:
-    clientId: "local.user.service"
+    clientId: "local.user.service.zipkin"
     producer:
-      transactionIdPrefix: local-user-service
+      transactionIdPrefix: local-user-service-
+    properties:
+      clientId.app: "local.user.service"
   profiles:
     include: kafka-producer

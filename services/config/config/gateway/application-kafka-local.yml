@@ -1,0 +1,5 @@
+spring:
+  kafka:
+    clientId: "local.gateway.zipkin"
+  profiles:
+    include: kafka-producer

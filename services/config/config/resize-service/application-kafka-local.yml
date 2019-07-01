@@ -1,6 +1,6 @@
 spring:
   kafka:
-    clientId: "local.resize.service"
+    clientId: "local.resize.service.zipkin"
     producer:
       transactionIdPrefix: local-resize-service-
     consumer:
@@ -8,5 +8,7 @@ spring:
       properties:
         # Use specific packages or * for all packages, cannot be combined together
         spring.json.trusted.packages: 'info.novatec.spring.showcase.image.message.v1.resource'
+    properties:
+      clientId.app: "local.resize.service"
   profiles:
     include: kafka-producer, kafka-consumer

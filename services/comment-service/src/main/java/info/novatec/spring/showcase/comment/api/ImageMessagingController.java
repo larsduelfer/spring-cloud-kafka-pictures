@@ -26,7 +26,7 @@ public class ImageMessagingController {
 
   @KafkaListener(
       topics = "#{topicConfiguration.getTopicForChannel('image')}",
-      clientIdPrefix = "${spring.kafka.clientId}.image")
+      clientIdPrefix = "${spring.kafka.properties.clientId.app}.image")
   public void listenToUserEvents(Acknowledgment ack, Event event) {
     if (event instanceof ImageUploadedEvent) {
       ImageUploadedEvent imageUploadedEvent = (ImageUploadedEvent) event;
