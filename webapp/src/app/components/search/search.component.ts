@@ -19,7 +19,7 @@ export class SearchComponent implements OnInit {
   searchTerm = '';
   currentJustify = 'start';
 
-  @ViewChild('ngbtabsetsearch')
+  @ViewChild('ngbtabsetsearch', { read: NgbTabset, static: false })
   private tabs: NgbTabset;
 
   @Select(PictureSearchState)

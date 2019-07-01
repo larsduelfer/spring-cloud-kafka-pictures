@@ -26,7 +26,7 @@ export class PictureCardComponent implements OnInit {
 
   protected commentsCollapsed = true;
 
-  @ViewChild("newComment")
+  @ViewChild('newComment', { read: ElementRef, static: false }) 
   private newComment: ElementRef;
 
   constructor(private store: Store, private pictureService: PictureService) { }

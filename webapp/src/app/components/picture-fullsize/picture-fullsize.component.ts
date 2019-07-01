@@ -34,7 +34,7 @@ export class PictureFullsizeComponent implements OnInit {
 
   protected commentsCollapsed = true;
 
-  @ViewChild("newComment")
+  @ViewChild("newComment", { read: ElementRef, static: false })
   private newComment: ElementRef;
 
   protected titleFormControl = new FormControl('', [Validators.maxLength(256)]);

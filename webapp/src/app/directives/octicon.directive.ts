@@ -1,6 +1,6 @@
 import { Directive, Input, OnInit, ElementRef, Renderer2 } from '@angular/core';
 
-import * as octicons from 'octicons';
+import * as octicons from '@primer/octicons';
 
 @Directive({
     selector: '[octicon]'

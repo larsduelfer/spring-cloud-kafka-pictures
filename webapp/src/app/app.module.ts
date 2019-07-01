@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatCardModule, MatButtonModule, MatFormField, MatFormFieldModule, MatInputModule, MatSnackBarModule } from '@angular/material';
+import { MatCardModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatSnackBarModule } from '@angular/material';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { NgxsModule } from '@ngxs/store';
@@ -34,7 +34,7 @@ import { PictureSearchState } from './states/picture-search.state';
 import { PictureFullsizeState } from './states/picture-fullsize.state';
 import { UserSearchState } from './states/user-search.state';
 import { UserPictureSearchState } from './states/user-picture-search.state';
-import { FileSelectDirective, FileUploadModule } from 'ng2-file-upload';
+import { FileUploadModule } from 'ng2-file-upload';
 import { CommentComponent } from './components/comment/comment.component';
 import { CommentsState } from './states/comment.state';
 

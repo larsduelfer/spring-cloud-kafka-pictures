@@ -4,6 +4,7 @@ import { UserResource } from '../../resources/user/UserResource';
 import { Observable } from 'rxjs';
 import { Store, Select } from '@ngxs/store';
 import { UserSearchState } from '../../states/user-search.state';
+import { UserReferenceResource } from 'src/app/resources/user/UserReferenceResource';
 
 @Component({
   selector: 'app-user-profile',
@@ -14,13 +15,13 @@ export class UserProfileComponent implements OnInit {
 
   private userId: string;
 
-  protected user: UserResource;
+  protected user: UserReferenceResource;
 
   constructor(private route: ActivatedRoute, private store: Store) { }
 
   ngOnInit() {
     this.userId = this.route.snapshot.paramMap.get("id");
-    this.store.select<UserResource>(UserSearchState.user(this.userId)).subscribe(user => this.user = user);
+    this.store.select<UserReferenceResource>(UserSearchState.user(this.userId)).subscribe(user => this.user = user);
   }
 
   profilePictureUrl(): string {

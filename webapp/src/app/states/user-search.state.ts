@@ -3,6 +3,7 @@ import { PicturePageResource } from "../resources/picture/PicturePageResource";
 import { PictureSearchService } from "../services/picture-search.service";
 import { UserPageResource } from "../resources/user/UserPageResource";
 import { UserSearchService } from "../services/user-search.service";
+import { UserReferenceResource } from "../resources/user/UserReferenceResource";
 
 export class SearchUserAction {
   static readonly type = 'SearchUser';

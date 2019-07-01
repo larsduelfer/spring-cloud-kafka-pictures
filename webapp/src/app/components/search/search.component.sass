@@ -7,13 +7,13 @@ div.search-container
   flex-direction: column
   .ngb-tabset-search
     margin-top: 18px
-    //The /deep/ is necessary to enforce overwriting of child component's css
+    //The /deep/ or ::ng-deep is necessary to enforce overwriting of child component's css
     //https://angular.io/guide/component-styles#deprecated-deep--and-ng-deep
-    /deep/ .nav
+    ::ng-deep .nav
       margin: 0
       padding-left: 18px
     
-    /deep/ .tab-content
+    ::ng-deep .tab-content
       padding: 10px
 
 .search-result-list
