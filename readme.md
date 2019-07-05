@@ -81,33 +81,33 @@ To start with a local git backend run with the parameters `-Dspring.profiles.act
 Start with the parameters `-Dspring.profiles.active=local`
 
 ###### User-Service
-Start with the parameters `-Dspring.profiles.active=local -Dkafka.transaction.id.prefix.user=user-instance-1-`
+Start with the parameters `-Dspring.profiles.active=local`
 
 ###### Storage-Service
-Start with the parameters `-Dspring.profiles.active=local -Dkafka.transaction.id.prefix.storage=storage-instance-1-`
+Start with the parameters `-Dspring.profiles.active=local`
 
 ###### Resize-Service
-Start with the parameters `-Dspring.profiles.active=local -Dkafka.transaction.id.prefix.resize=resize-instance-1-`
+Start with the parameters `-Dspring.profiles.active=local`
 
 ###### Search-Service
-Start with the parameters `-Dspring.profiles.active=local -Dkafka.transaction.id.prefix.search=search-instance-1-`
+Start with the parameters `-Dspring.profiles.active=local`
 
 ###### Comment-Service
-Start with the parameters `-Dspring.profiles.active=local -Dkafka.transaction.id.prefix.comment=comment-instance-1-`
+Start with the parameters `-Dspring.profiles.active=local`
 
 ###### Gateway
-Start with the parameters `-Dspring.profiles.active=local -Dlogging.level.root=DEBUG`
+Start with the parameters `-Dspring.profiles.active=local`
 
 ## Monitoring
 A few tools are added to get some insights, what's happening in the application.
 
 ### Zipkin
-Zipkin is started as docker container and can be accessed at [http://localhost:9411/](http://localhost:9411/).
+Zipkin is started as docker container and can be accessed at [http://localhost:9412/](http://localhost:9412/).
 
 ### Eureka Dashboard
 The eureka dashboard can be access at [http://localhost:10010/](http://localhost:10010/).
 
-~~Login with eureka:secret~~
+Login with eureka:secret
 
 ### Kafka Topics UI
 The topics UI can be accessed at [http://localhost:8000/](http://localhost:8000/).
