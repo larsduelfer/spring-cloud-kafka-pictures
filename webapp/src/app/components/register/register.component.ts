@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Store, Select } from '@ngxs/store';
-import { UpdateUserAction, CurrentUserState } from '../../states/current-user.state';
-import { Observable } from 'rxjs';
+import { Store } from '@ngxs/store';
+import { UpdateUserAction } from '../../states/current-user.state';
 import { RegisterStateModel, RegisterInitAction } from '../../states/register.state';
 import { UserResource } from '../../resources/user/UserResource';
 

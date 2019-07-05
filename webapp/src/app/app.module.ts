@@ -77,7 +77,6 @@ import { CommentsState } from './states/comment.state';
     FormsModule,
     ReactiveFormsModule,
     MatCardModule,
-    MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,

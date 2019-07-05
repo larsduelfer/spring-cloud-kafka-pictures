@@ -20,10 +20,10 @@
         <a class="nav-link text-white" href="javascript:void(0)" (click)="logout()">Logout</a>
       </div>
       <div class="nav-item" *ngIf="!registered && !loggedIn">
-        <a class="btn btn-light" routerLink="/sign-up">Sign Up</a>
+        <a class="btn btn-light btn-sign-up" routerLink="/sign-up">Sign Up</a>
       </div>
       <div class="nav-item" *ngIf="!registered && loggedIn">
-        <a class="btn btn-light" routerLink="/register">Finish Registration</a>
+        <a class="btn btn-light btn-finish-registration" routerLink="/register">Finish Registration</a>
       </div>
       <div class="nav-item" *ngIf="registered && loggedIn">
         <a class="btn btn-light" (click)="open(upload)">Upload</a>
