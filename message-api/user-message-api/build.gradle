@@ -1,14 +1,11 @@
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-}
-
 plugins {
-    id 'java'
+    id 'java-library'
     id 'maven-publish'
+    id 'com.commercehub.gradle.plugin.avro' version '0.17.0'
 }
 
+group = 'info.novatec.spring.showcase'
+version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
 //Publish the app to local maven repository by executing
@@ -30,13 +27,9 @@ publishing {
 }
 
 repositories {
-    mavenLocal()
     mavenCentral()
 }
 
 dependencies {
-    compileOnly('org.projectlombok:lombok:1.18.8')
-    compile('info.novatec.spring.showcase:common-api:0.0.1-SNAPSHOT')
+    implementation "org.apache.avro:avro:1.9.0"
 }
-
-evaluationDependsOn(':common-api')

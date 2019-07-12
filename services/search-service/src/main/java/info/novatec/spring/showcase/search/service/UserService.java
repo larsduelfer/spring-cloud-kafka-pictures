@@ -29,7 +29,7 @@ public class UserService {
 
   public User loadUserByUsername(String username) {
     return userRepository
-        .findOneByUserId(username)
+        .findOneByIdpId(username)
         .orElseThrow(
             () -> new UsernameNotFoundException("User with id " + username + " not found."));
   }

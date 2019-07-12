@@ -1,6 +1,6 @@
 package info.novatec.spring.showcase.search.configuration.messaging;
 
-import info.novatec.spring.showcase.common.Event;
+import org.apache.avro.specific.SpecificRecordBase;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +15,7 @@ public class DefaultRecoveryCallback implements RecoveryCallback<Object> {
   @Override
   public Object recover(RetryContext context) {
     String message = context.getLastThrowable().getMessage();
-    ConsumerRecord<String, Event> record = getConsumerRecord(context);
+    ConsumerRecord<String, SpecificRecordBase> record = getConsumerRecord(context);
     LOGGER.error(
         "Retry failed after {} attempts. Topic: {} Partition: {} Offset: {} Message: {}",
         context.getRetryCount(),
@@ -27,7 +27,9 @@ public class DefaultRecoveryCallback implements RecoveryCallback<Object> {
     throw new RetriesFailedException(context.getLastThrowable());
   }
 
-  private static ConsumerRecord<String, Event> getConsumerRecord(RetryContext context) {
+  @SuppressWarnings("unchecked")
+  private static ConsumerRecord<String, SpecificRecordBase> getConsumerRecord(
+      RetryContext context) {
     Object contextRecord = context.getAttribute(RetryingMessageListenerAdapter.CONTEXT_RECORD);
     if (contextRecord == null) {
       throw new IllegalStateException("Context record not found in retry context");
@@ -37,7 +39,7 @@ public class DefaultRecoveryCallback implements RecoveryCallback<Object> {
           "Context record not of expected type ConsumerRecord, but: "
               + contextRecord.getClass().getSimpleName());
     }
-    return (ConsumerRecord<String, Event>) contextRecord;
+    return (ConsumerRecord<String, SpecificRecordBase>) contextRecord;
   }
 
   private static class RetriesFailedException extends RuntimeException {

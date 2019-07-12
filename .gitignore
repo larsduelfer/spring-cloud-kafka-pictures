@@ -1,6 +1,6 @@
-.gradle
-/build/
-!gradle/wrapper/gradle-wrapper.jar
+**/.gradle
+**/build
+**/out
 
 ### STS ###
 .apt_generated
@@ -23,5 +23,17 @@ obj/
 
 ### Others ###
 classes/
-services/scripts/git/gitbucket-data/
-services/scripts/git/gitbucket.war
+
+# Ignore all ...
+intellij/.idea/*
+# ... except:
+!intellij/.idea/checkstyle-idea.xml
+!intellij/.idea/codeStyles/
+!intellij/.idea/compiler.xml
+!intellij/.idea/copyright/
+!intellij/.idea/encodings.xml
+!intellij/.idea/fileTemplates/
+!intellij/.idea/inspectionProfiles/
+!intellij/.idea/runConfigurations
+!intellij/.idea/scopes/
+!intellij/.idea/vcs.xml

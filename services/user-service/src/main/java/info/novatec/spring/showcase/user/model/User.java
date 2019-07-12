@@ -1,10 +1,9 @@
 package info.novatec.spring.showcase.user.model;
 
-import com.google.common.collect.Lists;
 import lombok.*;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
@@ -23,7 +22,7 @@ import java.util.UUID;
     uniqueConstraints = {
       @UniqueConstraint(name = "UK_User_Identifier", columnNames = "identifier")
     },
-    indexes = {@Index(name = "UK_User_UserId", columnList = "userid", unique = true)})
+    indexes = {@Index(name = "UK_User_IdpId", columnList = "idpid", unique = true)})
 public class User extends AbstractPersistable<Long> implements UserDetails {
 
   @Version private Long version;
@@ -46,9 +45,8 @@ public class User extends AbstractPersistable<Long> implements UserDetails {
   @NonNull
   @NotNull
   @Column(nullable = false)
-  private String userId;
+  private String idpId;
 
-  @NonNull
   @Column(nullable = false)
   private boolean registered;
 
@@ -60,7 +58,7 @@ public class User extends AbstractPersistable<Long> implements UserDetails {
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    return Lists.newArrayList(new SimpleGrantedAuthority("ROLE_USER"));
+    return AuthorityUtils.createAuthorityList("ROLE_USER");
   }
 
   @Override
@@ -70,7 +68,7 @@ public class User extends AbstractPersistable<Long> implements UserDetails {
 
   @Override
   public String getUsername() {
-    return userId;
+    return idpId;
   }
 
   @Override

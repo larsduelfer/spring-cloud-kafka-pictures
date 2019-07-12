@@ -1,6 +1,5 @@
 package info.novatec.spring.showcase.search.model;
 
-import info.novatec.spring.showcase.image.message.v1.resource.ExifData;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -14,7 +13,7 @@ import java.util.UUID;
 @Data
 @EqualsAndHashCode
 @NoArgsConstructor
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Document(
     indexName = ModelConstants.INDEX_IMAGE,
     type = ModelConstants.TYPE_IMAGE,
@@ -23,11 +22,9 @@ import java.util.UUID;
     refreshInterval = "-1")
 public class Image {
 
-  @NonNull @NotNull
-  private Date createdDate;
+  @NonNull @NotNull private Date createdDate;
 
-  @NonNull @NotNull
-  private Date lastModifiedDate;
+  @NonNull @NotNull private Date lastModifiedDate;
 
   @Id @NonNull @NotNull private UUID identifier;
 

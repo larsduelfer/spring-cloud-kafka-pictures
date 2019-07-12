@@ -1,11 +1,10 @@
 package info.novatec.spring.showcase.search.model;
 
-import com.google.common.collect.Lists;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.validation.constraints.NotNull;
@@ -26,13 +25,13 @@ public class User implements UserDetails {
 
   @Id @NonNull @NotNull private UUID identifier;
 
-  @NonNull @NotNull private String userId;
+  @NonNull @NotNull private String idpId;
 
   private String displayName;
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    return Lists.newArrayList(new SimpleGrantedAuthority("ROLE_USER"));
+    return AuthorityUtils.createAuthorityList("ROLE_USER");
   }
 
   @Override
@@ -42,7 +41,7 @@ public class User implements UserDetails {
 
   @Override
   public String getUsername() {
-    return userId;
+    return idpId;
   }
 
   @Override

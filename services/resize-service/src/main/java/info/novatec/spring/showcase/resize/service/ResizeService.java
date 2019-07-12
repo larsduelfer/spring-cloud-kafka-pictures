@@ -1,13 +1,12 @@
 package info.novatec.spring.showcase.resize.service;
 
-import com.google.common.collect.Sets;
-import com.google.common.io.ByteStreams;
 import com.mongodb.client.gridfs.model.GridFSFile;
-import info.novatec.spring.showcase.image.message.v1.resource.ExifData;
 import info.novatec.spring.showcase.model.Image;
 import info.novatec.spring.showcase.model.ImageResolution;
+import info.novatec.spring.showcase.resize.model.ExifData;
 import info.novatec.spring.showcase.resize.util.InvalidImageException;
 import info.novatec.spring.showcase.resize.util.ResizeUtil;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.gridfs.GridFsResource;
@@ -20,6 +19,7 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class ResizeService {
@@ -73,7 +73,8 @@ public class ResizeService {
 
   private Set<ImageResolution> getMissingImageSizes(
       Map<ImageResolution, GridFSFile> existingSizes) {
-    Set<ImageResolution> allSizes = Sets.newHashSet(ImageResolution.values());
+    Set<ImageResolution> allSizes =
+        Arrays.stream(ImageResolution.values()).collect(Collectors.toSet());
     allSizes.remove(ImageResolution.RAW);
     allSizes.removeAll(existingSizes.keySet());
     return allSizes;
@@ -82,7 +83,7 @@ public class ResizeService {
   private byte[] loadImageBinary(GridFSFile fsFile) {
     GridFsResource gridFsResource = imageService.loadResource(fsFile);
     try {
-      return ByteStreams.toByteArray(gridFsResource.getInputStream());
+      return IOUtils.toByteArray(gridFsResource.getInputStream());
     } catch (IOException ex) {
       throw new IllegalStateException("Image data couldn't be read", ex);
     }

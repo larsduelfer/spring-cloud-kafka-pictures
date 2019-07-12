@@ -3,12 +3,11 @@ spring:
     clientId: "local.search.service.zipkin"
     producer:
       transactionIdPrefix: local-search-service-
+      keySerializer: org.apache.kafka.common.serialization.StringSerializer
+      valueSerializer: io.confluent.kafka.serializers.KafkaAvroSerializer
     consumer:
       group-id: local.search
-      properties:
-        # Use specific packages or * for all packages, cannot be combined together
-        spring.json.trusted.packages: 'info.novatec.spring.showcase.user.message.v1.resource,info.novatec.spring.showcase.image.message.v1.resource'
     properties:
       clientId.app: "local.search.service"
   profiles:
-    include: kafka-producer, kafka-consumer
+    include: kafka-avro, kafka-producer, kafka-consumer

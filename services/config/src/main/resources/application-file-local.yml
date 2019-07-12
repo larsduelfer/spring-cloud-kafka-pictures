@@ -4,14 +4,15 @@ spring:
       server:
         native:
           searchLocations:
-          - "file:./config/config/{application}/"
-          - "file:./config/config/default/"
+          - "file:../services/config/config/{application}/"
+          - "file:../services/config/config/default/"
 
 #To activate the file based config run the app with: -Dspring.profiles.active=native,file-local
 
 #The search locations can be determined by determine the sub-path to the config folder starting at the path which
 #is logged with the logging-message-prefix "Application directory path: ".
 
-#Debug in org.springframework.cloud.config.server.environment.NativeEnvironmentRepository.getLocations()
-#and org.springframework.cloud.config.server.environment.NativeEnvironmentRepository.clean() to see if directories
+#Debug in org.springframework.cloud.config.server.environment.NativeEnvironmentRepository.getLocations() and
+#org.springframework.boot.context.config.ConfigFileApplicationListener.Loader.load(
+#   PropertySourceLoader, String, Profile, DocumentFilter, DocumentConsumer) to see if directories
 #match expected search locations.

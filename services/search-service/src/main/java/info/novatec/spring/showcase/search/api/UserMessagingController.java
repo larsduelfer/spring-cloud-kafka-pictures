@@ -1,11 +1,12 @@
 package info.novatec.spring.showcase.search.api;
 
-import info.novatec.spring.showcase.common.Event;
 import info.novatec.spring.showcase.search.api.assembler.UserAssembler;
 import info.novatec.spring.showcase.search.service.UserService;
-import info.novatec.spring.showcase.user.message.v1.resource.UserCreatedEvent;
-import info.novatec.spring.showcase.user.message.v1.resource.UserUpdatedEvent;
+import info.novatec.spring.showcase.user.message.UserCreatedEventAvro;
+import info.novatec.spring.showcase.user.message.UserUpdatedEventAvro;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.avro.specific.SpecificRecordBase;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -26,34 +27,20 @@ public class UserMessagingController {
   @KafkaListener(
       topics = "#{topicConfiguration.getTopicForChannel('user')}",
       clientIdPrefix = "${spring.kafka.properties.clientId.app}.user")
-  public void listenToUserEvents(Acknowledgment ack, Event event) {
-    if (event instanceof UserCreatedEvent) {
-      UserCreatedEvent userCreatedEvent = (UserCreatedEvent) event;
-      if (userCreatedEvent.getSchemaVersion() == UserCreatedEvent.SCHEMA_VERSION) {
-        userService.save(userAssembler.assemble(userCreatedEvent));
-        ack.acknowledge();
-      } else {
-        throwUnsupportedSchemaVersionError(event);
-      }
-    } else if (event instanceof UserUpdatedEvent) {
-      UserUpdatedEvent userUpdatedEvent = (UserUpdatedEvent) event;
-      if (userUpdatedEvent.getSchemaVersion() == UserCreatedEvent.SCHEMA_VERSION) {
-        userService.update(userAssembler.assemble(userUpdatedEvent));
-        ack.acknowledge();
-      } else {
-        throwUnsupportedSchemaVersionError(event);
-      }
+  public void listenToUserEvents(
+      Acknowledgment ack, ConsumerRecord<String, SpecificRecordBase> event) {
+
+    SpecificRecordBase value = event.value();
+
+    if (value instanceof UserCreatedEventAvro) {
+      userService.save(userAssembler.assemble((UserCreatedEventAvro) value));
+      ack.acknowledge();
+    } else if (value instanceof UserUpdatedEventAvro) {
+      userService.update(userAssembler.assemble((UserUpdatedEventAvro) value));
+      ack.acknowledge();
     } else {
       log.debug("Skip message of type: " + event.getClass());
       ack.acknowledge();
     }
-  }
-
-  private void throwUnsupportedSchemaVersionError(Event event) {
-    throw new IllegalArgumentException(
-        event.getClass().getName()
-            + "'s schema version "
-            + event.getSchemaVersion()
-            + " is not supported");
   }
 }

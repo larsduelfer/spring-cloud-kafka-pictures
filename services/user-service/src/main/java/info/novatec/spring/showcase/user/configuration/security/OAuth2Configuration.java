@@ -74,7 +74,7 @@ public class OAuth2Configuration {
               } catch (UsernameNotFoundException ex) {
                 if (userId != null) {
                   Date date = new Date();
-                  User user = new User(date, date, idGenerator.generateId(), userId, false);
+                  User user = new User(date, date, idGenerator.generateId(), userId);
                   return getAuthentication(userService.createUser(user));
                 }
                 LOGGER.warn("User not found", ex);

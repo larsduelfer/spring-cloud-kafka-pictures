@@ -9,9 +9,7 @@ import java.util.UUID;
 
 public interface UserRepository extends CassandraRepository<User, UUID> {
 
-  Optional<User> findOneByUserId(String userId);
-
-  User findOneByIdentifier(UUID identifier);
+  Optional<User> findOneByIdpId(String idpId);
 
   List<User> findAllByIdentifierIn(List<UUID> userIdentifiers);
 }

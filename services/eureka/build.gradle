@@ -1,26 +1,12 @@
-buildscript {
-    ext {
-        springBootVersion = '2.1.6.RELEASE'
-    }
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-    }
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.1.6.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
 }
-
-apply plugin: 'java'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
 
 group = 'info.novatec.spring.showcase'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
-
-jar {
-    baseName = project.name
-}
 
 bootRun {
     systemProperties = System.properties
@@ -36,17 +22,17 @@ ext {
 
 dependencies {
     //Workaround for error: Type javax.xml.bind.JAXBContext not present
-    compile('com.sun.xml.bind:jaxb-core:2.3.0.1')
-    compile('com.sun.xml.bind:jaxb-impl:2.3.2')
-    compile('javax.activation:activation:1.1.1')
-    compile('javax.xml.bind:jaxb-api')
+    implementation('com.sun.xml.bind:jaxb-core:2.3.0.1')
+    implementation('com.sun.xml.bind:jaxb-impl:2.3.2')
+    implementation('javax.activation:activation:1.1.1')
+    implementation('javax.xml.bind:jaxb-api')
     //End workaround
-    compile('org.springframework.boot:spring-boot-starter-actuator')
-    compile('org.springframework.boot:spring-boot-starter-security')
-    compile('org.springframework.cloud:spring-cloud-starter-config')
-    compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-server')
+    implementation('org.springframework.boot:spring-boot-starter-actuator')
+    implementation('org.springframework.boot:spring-boot-starter-security')
+    implementation('org.springframework.cloud:spring-cloud-starter-config')
+    implementation('org.springframework.cloud:spring-cloud-starter-netflix-eureka-server')
 
-    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
 }
 
 dependencyManagement {

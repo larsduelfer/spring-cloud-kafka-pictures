@@ -12,7 +12,12 @@ import java.util.UUID;
 @Component
 public class UserResourceAssembler {
 
-  public UserResource assemble(Optional<User> optionalUser) {
+  UserResource assemble(List<User> users, UUID userIdentifier) {
+    return assemble(
+        users.stream().filter(user -> user.getIdentifier().equals(userIdentifier)).findFirst());
+  }
+
+  private UserResource assemble(Optional<User> optionalUser) {
     UserResource userResource = new UserResource();
     if (optionalUser.isPresent()) {
       User user = optionalUser.get();
@@ -24,10 +29,5 @@ public class UserResourceAssembler {
               .withRel("profilePictureUrl"));
     }
     return userResource;
-  }
-
-  UserResource assemble(List<User> users, UUID userIdentifier) {
-    return assemble(
-        users.stream().filter(user -> user.getIdentifier().equals(userIdentifier)).findFirst());
   }
 }

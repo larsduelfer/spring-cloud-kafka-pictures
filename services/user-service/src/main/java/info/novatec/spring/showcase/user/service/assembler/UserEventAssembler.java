@@ -1,24 +1,29 @@
 package info.novatec.spring.showcase.user.service.assembler;
 
-import info.novatec.spring.showcase.user.message.v1.resource.UserCreatedEvent;
-import info.novatec.spring.showcase.user.message.v1.resource.UserUpdatedEvent;
+import info.novatec.spring.showcase.user.message.UserCreatedEventAvro;
+import info.novatec.spring.showcase.user.message.UserUpdatedEventAvro;
 import info.novatec.spring.showcase.user.model.User;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UserEventAssembler {
 
-  public UserCreatedEvent toCreatedEvent(User user) {
-    return new UserCreatedEvent(user.getCreatedDate(), user.getIdentifier(), user.getUserId());
+  public UserCreatedEventAvro toCreatedEvent(User user) {
+    return UserCreatedEventAvro.newBuilder()
+        .setDate(user.getCreatedDate().getTime())
+        .setIdentifier(user.getIdentifier().toString())
+        .setIdpId(user.getIdpId())
+        .build();
   }
 
-  public UserUpdatedEvent toUpdatedEvent(User user) {
-    return new UserUpdatedEvent(
-        user.getLastModifiedDate(),
-        user.getIdentifier(),
-        user.getUserId(),
-        user.getFirstName(),
-        user.getLastName(),
-        user.getDisplayName());
+  public UserUpdatedEventAvro toUpdatedEvent(User user) {
+    return UserUpdatedEventAvro.newBuilder()
+        .setDate(user.getLastModifiedDate().getTime())
+        .setDisplayName(user.getDisplayName())
+        .setFirstName(user.getFirstName())
+        .setIdentifier(user.getIdentifier().toString())
+        .setIdpId(user.getIdpId())
+        .setLastName(user.getLastName())
+        .build();
   }
 }

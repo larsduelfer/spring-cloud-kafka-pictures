@@ -1,26 +1,12 @@
-buildscript {
-    ext {
-        springBootVersion = '2.1.6.RELEASE'
-    }
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-    }
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.1.6.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
 }
-
-apply plugin: 'java'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
 
 group = 'info.novatec.spring.showcase'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
-
-jar {
-    baseName = project.name
-}
 
 bootRun {
     systemProperties = System.properties
@@ -29,7 +15,6 @@ bootRun {
 repositories {
     mavenLocal()
     mavenCentral()
-    maven { url "https://repo.spring.io/milestone" }
     maven { url "https://packages.confluent.io/maven" }
 }
 
@@ -39,35 +24,36 @@ ext {
 
 dependencies {
     compileOnly('org.projectlombok:lombok:1.18.8')
+    annotationProcessor('org.projectlombok:lombok:1.18.8')
 
-    compile('info.novatec.spring.showcase:user-message-api:0.0.1-SNAPSHOT')
+    implementation('info.novatec.spring.showcase:user-message-api:0.0.1-SNAPSHOT')
 
-    compile('commons-io:commons-io:2.6')
+    implementation('commons-io:commons-io:2.6')
     //Workaround for error: Type javax.xml.bind.JAXBContext not present
-    compile('com.sun.xml.bind:jaxb-core:2.3.0.1')
-    compile('com.sun.xml.bind:jaxb-impl:2.3.2')
-    compile('javax.activation:activation:1.1.1')
-    compile('javax.xml.bind:jaxb-api')
+    implementation('com.sun.xml.bind:jaxb-core:2.3.0.1')
+    implementation('com.sun.xml.bind:jaxb-impl:2.3.2')
+    implementation('javax.activation:activation:1.1.1')
+    implementation('javax.xml.bind:jaxb-api')
     //End workaround
-    compile('io.confluent:monitoring-interceptors:5.2.2')
-    compile('org.apache.commons:commons-lang3:3.9')
-    compile('org.apache.kafka:kafka-clients:2.2.1-cp1')
-    compile('org.flywaydb:flyway-core')
-    compile('org.springframework.boot:spring-boot-starter-actuator')
-    compile('org.springframework.boot:spring-boot-starter-data-jpa')
-    compile("org.springframework.boot:spring-boot-starter-hateoas")
-    compile('org.springframework.boot:spring-boot-starter-web')
-    compile('org.springframework.cloud:spring-cloud-starter-config')
-    compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
-    compile('org.springframework.cloud:spring-cloud-starter-sleuth')
-    compile('org.springframework.cloud:spring-cloud-starter-zipkin')
-    compile('org.springframework.kafka:spring-kafka')
-    compile('org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.1.6.RELEASE')
+    implementation('io.confluent:kafka-avro-serializer:5.2.2')
+    implementation('org.apache.commons:commons-lang3:3.9')
+    implementation('org.apache.kafka:kafka-clients:2.2.1-cp1')
+    implementation('org.flywaydb:flyway-core')
+    implementation('org.springframework.boot:spring-boot-starter-actuator')
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+    implementation("org.springframework.boot:spring-boot-starter-hateoas")
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation('org.springframework.cloud:spring-cloud-starter-config')
+    implementation('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
+    implementation('org.springframework.cloud:spring-cloud-starter-sleuth')
+    implementation('org.springframework.cloud:spring-cloud-starter-zipkin')
+    implementation('org.springframework.kafka:spring-kafka')
+    implementation('org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.1.6.RELEASE')
 
-    compile('mysql:mysql-connector-java')
+    implementation('mysql:mysql-connector-java')
 
-    testCompile("com.h2database:h2")
-    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testImplementation("com.h2database:h2")
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
 }
 
 dependencyManagement {

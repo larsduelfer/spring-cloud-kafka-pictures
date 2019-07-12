@@ -3,7 +3,9 @@ spring:
     clientId: "local.user.service.zipkin"
     producer:
       transactionIdPrefix: local-user-service-
+      keySerializer: org.apache.kafka.common.serialization.StringSerializer
+      valueSerializer: io.confluent.kafka.serializers.KafkaAvroSerializer
     properties:
       clientId.app: "local.user.service"
   profiles:
-    include: kafka-producer
+    include: kafka-avro, kafka-producer

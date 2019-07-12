@@ -1,0 +1,19 @@
+{
+  "type": "record",
+  "name": "UserCreatedEventAvro",
+  "namespace": "info.novatec.spring.showcase.user.message",
+  "fields": [
+    {
+      "name": "identifier",
+      "type": "string"
+    },
+    {
+      "name": "date",
+      "type": "long"
+    },
+    {
+      "name": "idpId",
+      "type": "string"
+    }
+  ]
+}

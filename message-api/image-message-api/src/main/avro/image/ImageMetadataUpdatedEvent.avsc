@@ -1,0 +1,27 @@
+{
+  "type": "record",
+  "name": "ImageMetadataUpdatedEventAvro",
+  "namespace": "info.novatec.spring.showcase.image.message",
+  "fields": [
+    {
+      "name": "identifier",
+      "type": "string"
+    },
+    {
+      "name": "date",
+      "type": "long"
+    },
+    {
+      "name": "userIdentifier",
+      "type": "string"
+    },
+    {
+      "name": "title",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null
+    }
+  ]
+}

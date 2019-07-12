@@ -1,6 +1,6 @@
 package info.novatec.spring.showcase.resize.configuration.messaging;
 
-import info.novatec.spring.showcase.common.Event;
+import org.apache.avro.specific.SpecificRecordBase;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
@@ -39,18 +39,8 @@ public class KafkaConfiguration {
     return new RetryProperties();
   }
 
-  /**
-   * Read referenced articles about transaction behaviour of kafka and spring.
-   *
-   * <p>https://stackoverflow.com/questions/47354521/transaction-synchronization-in-spring-kafka
-   * https://www.javaworld.com/article/2077963/open-source-tools/distributed-transactions-in-spring--with-and-without-xa.html
-   * https://docs.spring.io/spring-kafka/reference/html/_reference.html#transactions
-   * https://github.com/spring-projects/spring-kafka/issues/580
-   *
-   * @return kafkaTransactionManager
-   */
   @Bean
-  public KafkaTransactionManager kafkaTransactionManager() {
+  public KafkaTransactionManager<?, ?> kafkaTransactionManager() {
     KafkaTransactionManager<?, ?> kafkaTransactionManager =
         new KafkaTransactionManager<>(kafkaProducerFactory());
     kafkaTransactionManager.setTransactionSynchronization(
@@ -58,16 +48,6 @@ public class KafkaConfiguration {
     return kafkaTransactionManager;
   }
 
-  /*
-  There are three different transaction managers beans defined in the application context:
-  MongoTransactionManager, KafkaTransactionManager and ChainedTransactionManager.
-  One bean has to be defined as the primary bean to use, when no explicit transaction manager
-  is specified in the @Transactional annotation. It has to have the name transactionManager.
-  As it is expected that all database changes have to send events, the chained transaction
-  manager is defined as the primary bean to ensure that all transaction managers are
-  called.
-  https://stackoverflow.com/questions/47354521/transaction-synchronization-in-spring-kafka
-   */
   @Bean
   public ChainedTransactionManager chainedTransactionManager(
       MongoTransactionManager mongoTransactionManager,
@@ -88,7 +68,7 @@ public class KafkaConfiguration {
     Map<String, Object> producerProperties = kafkaProperties.buildProducerProperties();
     producerProperties.put(
         ProducerConfig.CLIENT_ID_CONFIG, kafkaProperties.getProperties().get("clientId.app"));
-    DefaultKafkaProducerFactory<String, Event> producerFactory =
+    DefaultKafkaProducerFactory<String, SpecificRecordBase> producerFactory =
         new DefaultKafkaProducerFactory<>(producerProperties);
     producerFactory.setTransactionIdPrefix(kafkaProperties.getProducer().getTransactionIdPrefix());
     return producerFactory;

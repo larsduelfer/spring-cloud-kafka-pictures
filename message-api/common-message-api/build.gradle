@@ -1,0 +1,35 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+    id 'com.commercehub.gradle.plugin.avro' version '0.17.0'
+}
+
+group = 'info.novatec.spring.showcase'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+//Publish the app to local maven repository by executing
+//./gradlew clean build publishToMavenLocal
+publishing {
+    repositories {
+        mavenLocal()
+    }
+    publications {
+        mavenJava(MavenPublication) {
+            ext.repo = 'mavenLocal'
+            from components.java
+            pom {
+                name = project.getName()
+                description = "Common Message API Library"
+            }
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.apache.avro:avro:1.9.0"
+}

@@ -1,30 +1,12 @@
-buildscript {
-    ext {
-        springBootVersion = '2.1.6.RELEASE'
-    }
-    repositories {
-        mavenCentral()
-        mavenLocal()
-        maven {
-            url "https://repo.adobe.com/nexus/content/repositories/public/"
-        }
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-    }
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.1.6.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
 }
-
-apply plugin: 'java'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
 
 group = 'info.novatec.spring.showcase'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
-
-jar {
-    baseName = project.name
-}
 
 bootRun {
     systemProperties = System.properties
@@ -43,27 +25,28 @@ ext {
 
 dependencies {
     compileOnly('org.projectlombok:lombok:1.18.8')
+    annotationProcessor('org.projectlombok:lombok:1.18.8')
 
-    compile('info.novatec.spring.showcase:common:0.0.1-SNAPSHOT')
-    compile('info.novatec.spring.showcase:image-message-api:0.0.1-SNAPSHOT')
+    implementation('info.novatec.spring.showcase:common:0.0.1-SNAPSHOT')
+    implementation('info.novatec.spring.showcase:image-message-api:0.0.1-SNAPSHOT')
 
-    compile('commons-io:commons-io:2.6')
-    compile('com.drewnoakes:metadata-extractor:2.11.0')
-    compile('org.apache.commons:commons-imaging:1.0-alpha1')
-    compile('org.imgscalr:imgscalr-lib:4.2')
+    implementation('commons-io:commons-io:2.6')
+    implementation('com.drewnoakes:metadata-extractor:2.11.0')
+    implementation('org.apache.commons:commons-imaging:1.0-alpha1')
+    implementation('org.imgscalr:imgscalr-lib:4.2')
 
-    compile('io.confluent:monitoring-interceptors:5.2.2')
-    compile('org.apache.kafka:kafka-clients:2.2.1-cp1')
-    compile('org.springframework.boot:spring-boot-starter-actuator')
-    compile('org.springframework.boot:spring-boot-starter-data-mongodb')
-    compile('org.springframework.cloud:spring-cloud-starter-config')
-    compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
-    compile('org.springframework.cloud:spring-cloud-starter-sleuth')
-    compile('org.springframework.cloud:spring-cloud-starter-zipkin')
-    compile('org.springframework.kafka:spring-kafka')
+    implementation('io.confluent:kafka-avro-serializer:5.2.2')
+    implementation('org.apache.kafka:kafka-clients:2.2.1-cp1')
+    implementation('org.springframework.boot:spring-boot-starter-actuator')
+    implementation('org.springframework.boot:spring-boot-starter-data-mongodb')
+    implementation('org.springframework.cloud:spring-cloud-starter-config')
+    implementation('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
+    implementation('org.springframework.cloud:spring-cloud-starter-sleuth')
+    implementation('org.springframework.cloud:spring-cloud-starter-zipkin')
+    implementation('org.springframework.kafka:spring-kafka')
 
-    testCompile('org.springframework.boot:spring-boot-starter-test')
-    testCompile('de.flapdoodle.embed:de.flapdoodle.embed.mongo:2.2.0')
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+    testImplementation('de.flapdoodle.embed:de.flapdoodle.embed.mongo:2.2.0')
 }
 
 dependencyManagement {

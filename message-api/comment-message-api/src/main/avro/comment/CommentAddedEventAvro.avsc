@@ -1,0 +1,23 @@
+{
+  "type": "record",
+  "name": "CommentAddedEventAvro",
+  "namespace": "info.novatec.spring.showcase.comment.message",
+  "fields": [
+    {
+      "name": "identifier",
+      "type": "string"
+    },
+    {
+      "name": "date",
+      "type": "long"
+    },
+    {
+      "name": "userIdentifier",
+      "type": "string"
+    },
+    {
+      "name": "comment",
+      "type": "string"
+    }
+  ]
+}

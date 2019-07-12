@@ -1,18 +1,21 @@
 package info.novatec.spring.showcase.search.api;
 
-import info.novatec.spring.showcase.common.Event;
-import info.novatec.spring.showcase.image.message.v1.resource.ImageDeletedEvent;
-import info.novatec.spring.showcase.image.message.v1.resource.ImageInvalidEvent;
-import info.novatec.spring.showcase.image.message.v1.resource.ImageResizedEvent;
-import info.novatec.spring.showcase.image.message.v1.resource.ImageUploadedEvent;
+import info.novatec.spring.showcase.image.message.ImageDeletedEventAvro;
+import info.novatec.spring.showcase.image.message.ImageExifDataExtractedEventAvro;
+import info.novatec.spring.showcase.image.message.ImageInvalidEventAvro;
+import info.novatec.spring.showcase.image.message.ImageUploadedEventAvro;
 import info.novatec.spring.showcase.search.api.assembler.ImageAssembler;
 import info.novatec.spring.showcase.search.service.ImageService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.avro.specific.SpecificRecordBase;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Controller;
+
+import java.util.UUID;
 
 @Slf4j
 @Controller
@@ -28,50 +31,24 @@ public class ImageMessagingController {
   @KafkaListener(
       topics = "#{topicConfiguration.getTopicForChannel('image')}",
       clientIdPrefix = "${spring.kafka.properties.clientId.app}.image")
-  public void listenToUserEvents(Acknowledgment ack, Event event) {
-    if (event instanceof ImageUploadedEvent) {
-      ImageUploadedEvent imageUploadedEvent = (ImageUploadedEvent) event;
-      if (imageUploadedEvent.getSchemaVersion() == ImageUploadedEvent.SCHEMA_VERSION) {
-        imageService.create(imageAssembler.assemble(imageUploadedEvent));
-        ack.acknowledge();
-      } else {
-        throwUnsupportedSchemaVersionError(event);
-      }
-    } else if (event instanceof ImageResizedEvent) {
-      ImageResizedEvent imageResizedEvent = (ImageResizedEvent) event;
-      if (imageResizedEvent.getSchemaVersion() == ImageResizedEvent.SCHEMA_VERSION) {
-        imageService.updateExifData(imageAssembler.assemble(imageResizedEvent));
-        ack.acknowledge();
-      } else {
-        throwUnsupportedSchemaVersionError(event);
-      }
-    } else if (event instanceof ImageInvalidEvent) {
-      ImageInvalidEvent imageInvalidEvent = (ImageInvalidEvent) event;
-      if (imageInvalidEvent.getSchemaVersion() == ImageInvalidEvent.SCHEMA_VERSION) {
-        imageService.deleteImage(imageInvalidEvent.getIdentifier());
-        ack.acknowledge();
-      } else {
-        throwUnsupportedSchemaVersionError(event);
-      }
-    } else if (event instanceof ImageDeletedEvent) {
-      ImageDeletedEvent imageDeletedEvent = (ImageDeletedEvent) event;
-      if (imageDeletedEvent.getSchemaVersion() == ImageDeletedEvent.SCHEMA_VERSION) {
-        imageService.deleteImage(imageDeletedEvent.getIdentifier());
-        ack.acknowledge();
-      } else {
-        throwUnsupportedSchemaVersionError(event);
-      }
+  public void listenToUserEvents(
+      Acknowledgment ack, ConsumerRecord<String, SpecificRecordBase> event) {
+    SpecificRecordBase value = event.value();
+    if (value instanceof ImageUploadedEventAvro) {
+      imageService.create(imageAssembler.assemble((ImageUploadedEventAvro) value));
+      ack.acknowledge();
+    } else if (value instanceof ImageExifDataExtractedEventAvro) {
+      imageService.updateExifData(imageAssembler.assemble((ImageExifDataExtractedEventAvro) value));
+      ack.acknowledge();
+    } else if (value instanceof ImageInvalidEventAvro) {
+      imageService.deleteImage(UUID.fromString(((ImageInvalidEventAvro) value).getIdentifier()));
+      ack.acknowledge();
+    } else if (value instanceof ImageDeletedEventAvro) {
+      imageService.deleteImage(UUID.fromString(((ImageDeletedEventAvro) value).getIdentifier()));
+      ack.acknowledge();
     } else {
       log.debug("Skip message of type: " + event.getClass());
       ack.acknowledge();
     }
-  }
-
-  private void throwUnsupportedSchemaVersionError(Event event) {
-    throw new IllegalArgumentException(
-        event.getClass().getName()
-            + "'s schema version "
-            + event.getSchemaVersion()
-            + " is not supported");
   }
 }

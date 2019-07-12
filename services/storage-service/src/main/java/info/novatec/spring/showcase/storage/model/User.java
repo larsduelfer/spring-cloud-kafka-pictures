@@ -1,11 +1,10 @@
 package info.novatec.spring.showcase.storage.model;
 
-import com.google.common.collect.Lists;
 import lombok.*;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.validation.constraints.NotNull;
@@ -24,14 +23,14 @@ public class User implements UserDetails {
   @NotNull
   private UUID identifier;
 
-  @Indexed(unique = true, name = "UK_User_UserId")
+  @Indexed(unique = true, name = "UK_User_IdpId")
   @NonNull
   @NotNull
-  private String userId;
+  private String idpId;
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    return Lists.newArrayList(new SimpleGrantedAuthority("ROLE_USER"));
+    return AuthorityUtils.createAuthorityList("ROLE_USER");
   }
 
   @Override
@@ -41,7 +40,7 @@ public class User implements UserDetails {
 
   @Override
   public String getUsername() {
-    return userId;
+    return idpId;
   }
 
   @Override

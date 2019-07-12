@@ -1,5 +1,8 @@
 spring:
   kafka:
     clientId: "local.gateway.zipkin"
+    producer:
+      keySerializer: org.apache.kafka.common.serialization.StringSerializer
+      valueSerializer: org.springframework.kafka.support.serializer.JsonSerializer
   profiles:
     include: kafka-producer

@@ -1,0 +1,11 @@
+{
+  "type": "record",
+  "name": "KeyAvro",
+  "namespace": "info.novatec.spring.showcase.common.message",
+  "fields": [
+    {
+      "name": "identifier",
+      "type": "string"
+    }
+  ]
+}

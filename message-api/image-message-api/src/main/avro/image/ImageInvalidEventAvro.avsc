@@ -1,0 +1,19 @@
+{
+  "type": "record",
+  "name": "ImageInvalidEventAvro",
+  "namespace": "info.novatec.spring.showcase.image.message",
+  "fields": [
+    {
+      "name": "identifier",
+      "type": "string"
+    },
+    {
+      "name": "date",
+      "type": "long"
+    },
+    {
+      "name": "userIdentifier",
+      "type": "string"
+    }
+  ]
+}

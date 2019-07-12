@@ -9,7 +9,7 @@ import org.springframework.hateoas.ResourceSupport;
 import java.util.UUID;
 
 @Data
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserResource extends ResourceSupport {

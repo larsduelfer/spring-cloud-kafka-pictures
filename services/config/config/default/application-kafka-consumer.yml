@@ -2,7 +2,7 @@ spring:
   kafka:
     consumer:
       keyDeserializer: org.apache.kafka.common.serialization.StringDeserializer
-      valueDeserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      valueDeserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
       enableAutoCommit: false
       properties:
         auto.offset.reset: earliest
@@ -10,6 +10,8 @@ spring:
         max.poll.records: 20
     listener:
       concurrency: 3
+    properties:
+      specific.avro.reader: true
 
 kafka:
   retry:

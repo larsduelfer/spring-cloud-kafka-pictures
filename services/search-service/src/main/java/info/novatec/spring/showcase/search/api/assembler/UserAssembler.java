@@ -1,24 +1,26 @@
 package info.novatec.spring.showcase.search.api.assembler;
 
 import info.novatec.spring.showcase.search.model.User;
-import info.novatec.spring.showcase.user.message.v1.resource.UserCreatedEvent;
-import info.novatec.spring.showcase.user.message.v1.resource.UserUpdatedEvent;
+import info.novatec.spring.showcase.user.message.UserCreatedEventAvro;
+import info.novatec.spring.showcase.user.message.UserUpdatedEventAvro;
 import org.springframework.stereotype.Component;
+
+import java.util.UUID;
 
 @Component
 public class UserAssembler {
 
-  public User assemble(UserCreatedEvent userCreatedEvent) {
+  public User assemble(UserCreatedEventAvro userCreatedEvent) {
     User user = new User();
-    user.setIdentifier(userCreatedEvent.getIdentifier());
-    user.setUserId(userCreatedEvent.getUserId());
+    user.setIdentifier(UUID.fromString(userCreatedEvent.getIdentifier()));
+    user.setIdpId(userCreatedEvent.getIdpId());
     return user;
   }
 
-  public User assemble(UserUpdatedEvent userUpdatedEvent) {
+  public User assemble(UserUpdatedEventAvro userUpdatedEvent) {
     User user = new User();
-    user.setIdentifier(userUpdatedEvent.getIdentifier());
-    user.setUserId(userUpdatedEvent.getUserId());
+    user.setIdentifier(UUID.fromString(userUpdatedEvent.getIdentifier()));
+    user.setIdpId(userUpdatedEvent.getIdpId());
     user.setDisplayName(userUpdatedEvent.getDisplayName());
     return user;
   }

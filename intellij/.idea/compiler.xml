@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="comment-message-api.common-api.main" target="1.8" />
+      <module name="comment-message-api.common-api.test" target="1.8" />
+      <module name="common-api.main" target="1.8" />
+      <module name="common-api.test" target="1.8" />
+      <module name="common-message-api.common-api.main" target="1.8" />
+      <module name="common-message-api.common-api.test" target="1.8" />
+      <module name="info.novatec.spring.showcase.comment-message-api.main" target="1.8" />
+      <module name="info.novatec.spring.showcase.comment-message-api.test" target="1.8" />
+      <module name="info.novatec.spring.showcase.common-api.main" target="1.8" />
+      <module name="info.novatec.spring.showcase.common-api.test" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

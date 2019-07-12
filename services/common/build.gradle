@@ -1,11 +1,7 @@
-buildscript {
-    repositories {
-        mavenCentral()
-    }
+plugins {
+    id 'java-library'
+    id 'maven-publish'
 }
-
-apply plugin: 'java'
-apply plugin: 'maven-publish'
 
 group = 'info.novatec.spring.showcase'
 version = '0.0.1-SNAPSHOT'
@@ -24,12 +20,6 @@ publishing {
             pom {
                 name = project.getName()
                 description = "Common Library"
-                licenses {
-                    license {
-                        name = 'The Apache License, Version 2.0'
-                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                    }
-                }
             }
         }
     }
@@ -41,4 +31,5 @@ repositories {
 
 dependencies {
     compileOnly('org.projectlombok:lombok:1.18.8')
+    annotationProcessor('org.projectlombok:lombok:1.18.8')
 }

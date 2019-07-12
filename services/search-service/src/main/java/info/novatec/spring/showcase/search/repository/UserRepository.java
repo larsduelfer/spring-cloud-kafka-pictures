@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public interface UserRepository extends ElasticsearchRepository<User, UUID> {
 
-  Optional<User> findOneByUserId(String userId);
+  Optional<User> findOneByIdpId(String idpId);
 
   User findOneByIdentifier(UUID identifier);
 

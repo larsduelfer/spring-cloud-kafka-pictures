@@ -1,12 +1,11 @@
 package info.novatec.spring.showcase.comment.model;
 
-import com.google.common.collect.Lists;
 import lombok.*;
 import org.springframework.data.cassandra.core.mapping.Indexed;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.validation.constraints.NotNull;
@@ -22,13 +21,13 @@ public class User implements UserDetails {
 
   @PrimaryKey @NonNull @NotNull private UUID identifier;
 
-  @Indexed @NonNull @NotNull private String userId;
+  @Indexed @NonNull @NotNull private String idpId;
 
   private String displayName;
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    return Lists.newArrayList(new SimpleGrantedAuthority("ROLE_USER"));
+    return AuthorityUtils.createAuthorityList("ROLE_USER");
   }
 
   @Override
@@ -38,7 +37,7 @@ public class User implements UserDetails {
 
   @Override
   public String getUsername() {
-    return userId;
+    return idpId;
   }
 
   @Override

@@ -22,7 +22,7 @@ public class UserService {
   @Transactional(readOnly = true)
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     return userRepository
-        .findOneByUserId(username)
+        .findOneByIdpId(username)
         .orElseThrow(
             () -> new UsernameNotFoundException("User with id " + username + " not found."));
   }
