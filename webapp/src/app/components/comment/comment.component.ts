@@ -20,6 +20,10 @@ export class CommentComponent implements OnInit {
     return this.comment._embedded.user.displayName;
   }
 
+  profilePictureUrl(): string {
+    return `url(${this.comment._embedded.user._links.profilePictureUrl.href})`;
+  }
+
   content(): string {
     return this.comment.comment;
   }

@@ -25,7 +25,7 @@ public class UserResourceAssembler {
       userResource.setDisplayName(user.getDisplayName());
       userResource.add(
           BasicLinkBuilder.linkToCurrentMapping()
-              .slash("/users/binaries/" + userResource.getIdentifier())
+              .slash("/users/" + userResource.getIdentifier() + "/binaries")
               .withRel("profilePictureUrl"));
     }
     return userResource;
