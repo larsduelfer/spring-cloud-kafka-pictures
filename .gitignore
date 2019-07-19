@@ -33,6 +33,7 @@ intellij/.idea/*
 !intellij/.idea/copyright/
 !intellij/.idea/encodings.xml
 !intellij/.idea/fileTemplates/
+!intellij/.idea/gradle.xml
 !intellij/.idea/inspectionProfiles/
 !intellij/.idea/runConfigurations
 !intellij/.idea/scopes/
