@@ -7,14 +7,40 @@
     <bytecodeTargetLevel>
       <module name="comment-message-api.common-api.main" target="1.8" />
       <module name="comment-message-api.common-api.test" target="1.8" />
+      <module name="comment-message-api.main" target="1.8" />
+      <module name="comment-message-api.test" target="1.8" />
+      <module name="comment-service.main" target="1.8" />
+      <module name="comment-service.test" target="1.8" />
       <module name="common-api.main" target="1.8" />
       <module name="common-api.test" target="1.8" />
       <module name="common-message-api.common-api.main" target="1.8" />
       <module name="common-message-api.common-api.test" target="1.8" />
+      <module name="common-message-api.main" target="1.8" />
+      <module name="common-message-api.test" target="1.8" />
+      <module name="common.main" target="1.8" />
+      <module name="common.test" target="1.8" />
+      <module name="config.main" target="1.8" />
+      <module name="config.test" target="1.8" />
+      <module name="eureka.main" target="1.8" />
+      <module name="eureka.test" target="1.8" />
+      <module name="gateway.main" target="1.8" />
+      <module name="gateway.test" target="1.8" />
+      <module name="image-message-api.main" target="1.8" />
+      <module name="image-message-api.test" target="1.8" />
       <module name="info.novatec.spring.showcase.comment-message-api.main" target="1.8" />
       <module name="info.novatec.spring.showcase.comment-message-api.test" target="1.8" />
       <module name="info.novatec.spring.showcase.common-api.main" target="1.8" />
       <module name="info.novatec.spring.showcase.common-api.test" target="1.8" />
+      <module name="resize-service.main" target="1.8" />
+      <module name="resize-service.test" target="1.8" />
+      <module name="search-service.main" target="1.8" />
+      <module name="search-service.test" target="1.8" />
+      <module name="storage-service.main" target="1.8" />
+      <module name="storage-service.test" target="1.8" />
+      <module name="user-message-api.main" target="1.8" />
+      <module name="user-message-api.test" target="1.8" />
+      <module name="user-service.main" target="1.8" />
+      <module name="user-service.test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
