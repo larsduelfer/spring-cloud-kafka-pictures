@@ -1,17 +1,21 @@
-FROM microsoft/dotnet:2.1-sdk AS build-env
+FROM mcr.microsoft.com/dotnet/core/aspnet:2.2 AS base
 WORKDIR /app
+EXPOSE 80
 
-# Copy csproj and restore as distinct layers
+FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS build
+WORKDIR /src
 COPY *.csproj ./
 RUN dotnet restore
 
 # Copy everything else and build
 COPY . ./
-RUN dotnet publish -c Release -o out
+RUN dotnet build -c Release -o /app
+
+FROM build as publish
+RUN dotnet publish -c Release -o /app
 
 # Build runtime image
-FROM microsoft/dotnet:2.1-aspnetcore-runtime
+FROM base as final
 WORKDIR /app
-EXPOSE 80/tcp
-COPY --from=build-env /app/out .
+COPY --from=publish /app .
 ENTRYPOINT ["dotnet", "identityserver.dll"]

@@ -1,16 +1,22 @@
 version: "3"
 services:
-    web:
-        build: .
-        ports:
-            - "5000:80"
-        depends_on:
-            - mssql
-    mssql:
-        image: "microsoft/mssql-server-linux:2017-CU4"
-        ports:
-            - "1433:1433"
-        environment:
-            SA_PASSWORD: "IdentityDb#1"
-            ACCEPT_EULA: "Y"
-
+  web:
+    build: .
+    ports:
+      - "5000:80"
+    depends_on:
+      - mssql
+  mssql:
+    build: ./mssql
+    ports:
+      - "1433:1433"
+    environment:
+      MSSQL_PID: "Express"
+      SA_PASSWORD: "IdentityDb#1"
+      ACCEPT_EULA: "Y"
+      MSSQL_DB: identityserver
+    healthcheck:
+      test: '/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P IdentityDb#1 -Q "SELECT 1" || exit 1'
+      interval: 10s
+      timeout: 3s
+      retries: 10

@@ -63,10 +63,7 @@ namespace IdentityServer
                     RedirectUris = { "http://localhost:4200/dashboard" },
                     PostLogoutRedirectUris = { "http://localhost:4200/dashboard" },
 
-                    AllowedCorsOrigins = {
-                        "http://localhost:4200/",
-                        "http://localhost:4200/dashboard"
-                    },
+                    AllowedCorsOrigins = { "http://localhost:4200" },
 
                     AllowedScopes = new List<string>
                     {

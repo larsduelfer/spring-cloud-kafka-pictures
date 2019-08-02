@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
@@ -144,6 +145,9 @@ namespace IdentityServer
                     };
                 });
 
+                services.AddDataProtection().SetApplicationName("Identity Server");
+                services.AddAntiforgery();
+
                 //TODO
                 //https://docs.microsoft.com/de-de/aspnet/core/security/enforcing-ssl
         }
@@ -212,7 +216,11 @@ namespace IdentityServer
         {
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
+                //Generate migration with the following command, delete old before generating:
+                //dotnet ef migrations add CreateIdentitySchema -o "Data/Migrations/AspNetCoreIdentity" --context "ApplicationDbContext"
                 serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>().Database.Migrate();
+                //Generate migration with the following command, delete old before generating:
+                //dotnet ef migrations add PersistedGrantDbMigration -o "Data/Migrations/PersistedGrantDb" --context "PersistedGrantDbContext"
                 serviceScope.ServiceProvider.GetRequiredService<PersistedGrantDbContext>().Database.Migrate();
             }
         }
