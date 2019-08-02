@@ -206,8 +206,8 @@ namespace IdentityServer.Controllers
 
             var vm = new LoggedOutViewModel
             {
-                PostLogoutRedirectUri = logout?.PostLogoutRedirectUri,
-                AutomaticRedirectAfterSignOut = logout?.PostLogoutRedirectUri != null,
+                PostLogoutRedirectUri = logout?.PostLogoutRedirectUri != null ? logout?.PostLogoutRedirectUri : "/",
+                AutomaticRedirectAfterSignOut = true,
                 ClientName = logout?.ClientId,
                 SignOutIframeUrl = logout?.SignOutIFrameUrl
             };
