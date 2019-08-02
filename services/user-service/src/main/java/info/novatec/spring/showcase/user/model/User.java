@@ -15,7 +15,6 @@ import java.util.UUID;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-@RequiredArgsConstructor
 @Entity
 @Table(
     name = "user_entity",
@@ -55,6 +54,13 @@ public class User extends AbstractPersistable<Long> implements UserDetails {
   private String lastName;
 
   private String displayName;
+
+  public User(@NonNull @NotNull UUID identifier, @NonNull @NotNull String idpId, @NonNull @NotNull Date date) {
+    this.identifier = identifier;
+    this.idpId = idpId;
+    this.createdDate = date;
+    this.lastModifiedDate = date;
+  }
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
