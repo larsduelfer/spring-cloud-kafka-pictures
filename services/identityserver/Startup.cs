@@ -44,7 +44,7 @@ namespace IdentityServer
         {
             var migrationsAssembly = typeof(Startup).Assembly.GetName().Name;
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -62,7 +62,7 @@ namespace IdentityServer
                 .AddOperationalStore(options =>
                 {
                     options.ConfigureDbContext = builder =>
-                        builder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), 
+                        builder.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"), 
                         sql => sql.MigrationsAssembly(migrationsAssembly));
 
                     options.EnableTokenCleanup = true;
@@ -80,8 +80,11 @@ namespace IdentityServer
                     //1. Login at https://console.developers.google.com/
                     //2. Create a new project
                     //3. Add Google+ API
-                    //4. Create credentials "OAuth client ID" (menu on the left)
-                    //  - Type: Web-Application
+                    //4. Create credentials by clicking on "Credentials" on the left
+                    //  - Click on the link "Credentials in APIs & Services" in "To view all credentials or create new credentials visit Credentials in APIs & Services"
+                    //  - Select in the drowdown "Create Credentials" the value "OAuth client ID"
+                    //  - Configure OAuth consent by entering the application name, click on "Save"
+                    //  - Select application type: Web-Application
                     //  - Name: <enter a name>
                     //  - Authorized JavaScript origins can be empty
                     //  - Authorized redirect URIs: http://localhost:5000/signin-google
