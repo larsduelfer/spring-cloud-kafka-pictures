@@ -38,7 +38,11 @@ export class PictureCardComponent implements OnInit {
     this.store
       .select(state => state.pictureLikes)
       .subscribe(pictureLikes => {
-        let likes = pictureLikes.likes.find(item => item.imageIdentifier === this.picture.identifier).likes;
+        if(pictureLikes == undefined || pictureLikes.likes == undefined) {
+          return;
+        }
+        let foundLikes = pictureLikes.likes.find(item => item.imageIdentifier === this.picture.identifier);
+        let likes = foundLikes == undefined ? undefined : foundLikes.likes;
         this.likes = likes == undefined ? 0 : likes
       });
   }
