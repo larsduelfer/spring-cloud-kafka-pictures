@@ -31,6 +31,8 @@
       <module name="info.novatec.spring.showcase.comment-message-api.test" target="1.8" />
       <module name="info.novatec.spring.showcase.common-api.main" target="1.8" />
       <module name="info.novatec.spring.showcase.common-api.test" target="1.8" />
+      <module name="like-service.main" target="11" />
+      <module name="like-service.test" target="11" />
       <module name="resize-service.main" target="1.8" />
       <module name="resize-service.test" target="1.8" />
       <module name="search-service.main" target="1.8" />
