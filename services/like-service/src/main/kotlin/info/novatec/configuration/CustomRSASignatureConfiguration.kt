@@ -1,9 +1,10 @@
 package info.novatec.configuration
 
-import com.sun.org.apache.xml.internal.security.utils.Base64
 import io.micronaut.security.token.jwt.signature.rsa.RSASignatureConfiguration
-import sun.security.rsa.RSAPublicKeyImpl
+import java.security.KeyFactory
 import java.security.interfaces.RSAPublicKey
+import java.security.spec.X509EncodedKeySpec
+import java.util.*
 
 class CustomRSASignatureConfiguration : RSASignatureConfiguration {
 
@@ -18,8 +19,10 @@ class CustomRSASignatureConfiguration : RSASignatureConfiguration {
     -----END PUBLIC KEY-----""".trimIndent()
 
     override fun getPublicKey(): RSAPublicKey {
-        return RSAPublicKeyImpl(Base64.decode(key.replace("-----BEGIN PUBLIC KEY-----", "")
+        val base64Key = Base64.getDecoder().decode(key.replace("-----BEGIN PUBLIC KEY-----", "")
                 .replace("-----END PUBLIC KEY-----", "")
-                .replace("\n", "")))
+                .replace("\n", "").replace(" ", ""))
+        return KeyFactory.getInstance("RSA").generatePublic(X509EncodedKeySpec(base64Key))
+                as RSAPublicKey
     }
 }
