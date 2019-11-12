@@ -9,20 +9,22 @@ import io.micronaut.configuration.kafka.annotation.OffsetReset
 import io.micronaut.configuration.kafka.annotation.OffsetStrategy
 import io.micronaut.configuration.kafka.annotation.Topic
 import io.micronaut.messaging.Acknowledgement
+import io.micronaut.tracing.annotation.NewSpan
 import org.apache.avro.specific.SpecificRecordBase
 import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.slf4j.LoggerFactory
 import java.util.*
 
 @KafkaListener(groupId = "local.likes", offsetStrategy = OffsetStrategy.DISABLED, offsetReset = OffsetReset.EARLIEST)
-class UserListener(
+open class UserListener(
         private val userRepository: UserRepository
 ) {
 
     private val logger = LoggerFactory.getLogger(UserListener::class.java)
 
     @Topic("local.user")
-    fun listenToUserEvent(record: ConsumerRecord<String, SpecificRecordBase>, acknowledgement: Acknowledgement) {
+    @NewSpan
+    open fun listenToUserEvent(record: ConsumerRecord<String, SpecificRecordBase>, acknowledgement: Acknowledgement) {
         var value = record.value()
         when (value) {
             is UserCreatedEventAvro -> {

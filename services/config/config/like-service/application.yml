@@ -30,6 +30,14 @@ kafka:
       schema.registry.url: http://localhost:8081
       specific.avro.reader: true
 
+tracing:
+  zipkin:
+    http:
+      url: http://localhost:9412
+    enabled: true
+    sampler:
+      probability: 1
+
 datasources:
   default:
     url: jdbc:mysql://localhost:3308/likes?user=mysql&password=secret&useSSL=false
